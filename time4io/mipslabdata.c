@@ -1,16 +1,25 @@
-/* mipslabdata.c
-   This file compiled 2015 by F Lundevall
-   from original code written by Axel Isaksson
+#include <pic32mx.h>
+#include <stdint.h>
 
-   For copyright and licensing, see file COPYING */
+#define DISPLAY_VDD PORTFbits.RF6
+#define DISPLAY_VBATT PORTFbits.RF5
+#define DISPLAY_COMMAND_DATA PORTFbits.RF4
+#define DISPLAY_RESET PORTGbits.RG9
 
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "mipslab.h"  /* Declatations for these labs */
+
+#define DISPLAY_VDD_PORT PORTF
+#define DISPLAY_VDD_MASK 0x40
+#define DISPLAY_VBATT_PORT PORTF
+#define DISPLAY_VBATT_MASK 0x20
+#define DISPLAY_COMMAND_DATA_PORT PORTF
+#define DISPLAY_COMMAND_DATA_MASK 0x10
+#define DISPLAY_RESET_PORT PORTG
+#define DISPLAY_RESET_MASK 0x200
+
 
 char textbuffer[4][16];
 
-const uint8_t const font[] = {
+static const uint8_t const font[] = {
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -159,3 +168,10 @@ const uint8_t const icon[] = {
 	132, 59, 192, 27, 164, 74, 177, 70,
 	184, 69, 186, 69, 254, 80, 175, 217,
 };
+
+
+
+
+/* spi_send_recv: Prepares two chunks for sending data first and then
+receiving an answer, queues a transfer and waits for
+it to complete.  This is not a full-duplex operation.*/

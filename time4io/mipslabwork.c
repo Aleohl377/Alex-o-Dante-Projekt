@@ -15,8 +15,8 @@
 #include "mipslab.h"  /* Declatations for these labs */
 
 int mytime = 0x5957;
-volatile int* PORTEs = (volatile int*)0xbf886110; //skapa pointer till portE
-volatile int* TRISEs = (volatile int*)0xbf886100;
+//volatile int* PORTEs = (volatile int*)0xbf886110; //skapa pointer till portE
+//volatile int* TRISEs = (volatile int*)0xbf886100;
 
 char textstring[] = "text, more text, and even more text!";
 
@@ -30,9 +30,9 @@ void user_isr( void )
 void labinit( void )
 {
   // LEDS
-	TRISEs &= ~0xff;  /* set 8 lsb to outputs*/
+	TRISE &= ~0xff;  /* set 8 lsb to outputs*/
   // 
-	PORTEs = 0;	/*set value of LEDs to 0*/
+	PORTE = 0;	/*set value of LEDs to 0*/
   //
 	TRISD |= 0xfe0;	/* set bits 11 till 5*/
   return;
@@ -44,30 +44,52 @@ void labwork( void )
 
   int button = getbtns();
 	int switches = getsw();
+  delay(1000);
+  display_init();
+	display_string(0, "> Start");
+	display_string(1, " Settings");
+	display_string(2, " Game Speed");
+  display_string(3, "");
+	display_update();
 
 	if (button & 1)
   {
-		mytime &= 0xff0f; // rensar andra visaren  00:X0
-		mytime = (switches << 4) | mytime;  // ersätter minuterna med input från switches
+    display_init();
+	delay(1000);
+	display_string(0, " Start");
+	display_string(1, "> By group 50");
+	display_string(2, " Game speed");
+  display_string(3, "");
+	
 	}
 
 	if (button & 2) 
   {
-		mytime &= 0xf0ff; //rensar tredje visaren  0X:00
-		mytime = (switches << 8) | mytime;
+    display_init();
+  delay(1000);
+	display_string(0, " Start");
+	display_string(1, " By group 50");
+	display_string(2, "> Game speed");
+  display_string(3, "");
+	
 	}
 
 	if (button & 4) 
   {
-		mytime &= 0x0fff; //rensar fjärde visaren  X0:00
-		mytime = (switches << 12) | mytime;
+    display_init();
+  delay(1000);
+	display_string(0, " Start");
+	display_string(1, "> By group 50");
+	display_string(2, " Game speed");
+  display_string(3, "");
+	
 	}
 
-  delay( 1000 );
-  time2string( textstring, mytime );
-  display_string( 3, textstring );
+  //delay( 1000 );
+  //time2string( textstring, mytime );
+  //display_string( 3, textstring );
   display_update();
-  tick( &mytime );
-  PORTEs += 1;	/* addera med 1 till PORTE efter varje tick*/
-  display_image(96, icon);
+  //tick( &mytime );
+  //PORTE += 1;	/* addera med 1 till PORTE efter varje tick*/
+  //display_image(96, icon);
 }
