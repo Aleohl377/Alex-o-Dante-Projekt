@@ -39,47 +39,44 @@ void labinit( void )
 void labwork( void )
 {
 
-  int button = getbtns();
+  	int button = getbtns();
 	int switches = getsw();
-  delay(1000);
-  display_init();
+  	delay(1000);
+  	display_init();
 	display_string(0, "> Start");
 	display_string(1, " Settings");
 	display_string(2, " Game Speed");
-  display_string(3, "");
+  	display_string(3, "");
 	display_update();
 
 	if (button & 1)
-  {
-    display_init();
-	delay(1000);
-	display_string(0, " Start");
-	display_string(1, "> By group 50");
-	display_string(2, " Game speed");
-  display_string(3, "");
-	
+  	{
+		display_init();
+		delay(1000);
+		display_string(0, " Start");
+		display_string(1, "> By group 50");
+		display_string(2, " Game speed");
+		display_string(3, "");
 	}
 
 	if (button & 2) 
-  {
-    display_init();
-  delay(1000);
-	display_string(0, " Start");
-	display_string(1, " By group 50");
-	display_string(2, "> Game speed");
-  display_string(3, "");
-	
+  	{
+		display_init();
+		delay(1000);
+		display_string(0, " Start");
+		display_string(1, " By group 50");
+		display_string(2, "> Game speed");
+		display_string(3, "");
 	}
 
 	if (button & 4) 
-  {
-    display_init();
-  delay(1000);
-	display_string(0, " Start");
-	display_string(1, "> By group 50");
-	display_string(2, " Game speed");
-  display_string(3, "");
-	
+  	{
+		display_init();
+		delay(1000);
+		display_string(0, " Start");
+		display_string(1, "> By group 50");
+		display_string(2, " Game speed");
+		display_string(3, "");
 	}
 
   //delay( 1000 );
