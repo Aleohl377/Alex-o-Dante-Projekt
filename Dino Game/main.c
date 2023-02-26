@@ -11,6 +11,77 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "header.h"  /* Declatations for these labs */
 
+const uint8_t const display[] = {
+
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+};
+
 int mytime = 0x5957;
 //volatile int* PORTEs = (volatile int*)0xbf886110; //skapa pointer till portE
 //volatile int* TRISEs = (volatile int*)0xbf886100;
@@ -41,17 +112,18 @@ void labwork( void )
 
   	int button = getbtns();
 	int switches = getsw();
-  	delay(1000);
-  	display_init();
+  	delay(100);
+  	
 	display_string(0, "> Start");
 	display_string(1, " Settings");
 	display_string(2, " Game Speed");
   	display_string(3, "");
 	display_update();
+	
 
 	if (button & 1)
   	{
-		display_init();
+		//display_init();
 		delay(1000);
 		display_string(0, " Start");
 		display_string(1, "> By group 50");
@@ -61,7 +133,7 @@ void labwork( void )
 
 	if (button & 2) 
   	{
-		display_init();
+		//display_init();
 		delay(1000);
 		display_string(0, " Start");
 		display_string(1, " By group 50");
@@ -71,7 +143,7 @@ void labwork( void )
 
 	if (button & 4) 
   	{
-		display_init();
+		//display_init();
 		delay(1000);
 		display_string(0, " Start");
 		display_string(1, "> By group 50");
@@ -82,7 +154,7 @@ void labwork( void )
   //delay( 1000 );
   //time2string( textstring, mytime );
   //display_string( 3, textstring );
-  display_update();
+  //display_update();
   //tick( &mytime );
   //PORTE += 1;	/* addera med 1 till PORTE efter varje tick*/
   //display_image(96, icon);
@@ -138,7 +210,7 @@ int main(void) {
 	display_string(1, "By group 50");
 	display_string(2, "");
 	display_string(3, "Welcome!");
-	
+	spi_send_recv(255);
 	display_update();
 	
 	// New set of strings to get black screen
@@ -154,7 +226,10 @@ int main(void) {
 
 	while( 1 )
 	{
-	  labwork(); /* Do lab-specific things again and again */
+	  //labwork(); /* Do lab-specific things again and again */
+	  display_image(0, display);
+	  delay(500);
+	  display_black();
 	}
 	return 0;
 }
