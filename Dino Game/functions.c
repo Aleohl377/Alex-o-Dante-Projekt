@@ -9,8 +9,9 @@
 #include "header.h"  /* Declatations for these labs */
 
 /* Declare a helper function which is local to this file */
-static void num32asc( char * s, int ); 
+//static void num32asc( char * s, int ); 
 
+/*
 #define DISPLAY_CHANGE_TO_COMMAND_MODE (PORTFCLR = 0x10)
 #define DISPLAY_CHANGE_TO_DATA_MODE (PORTFSET = 0x10)
 
@@ -22,6 +23,7 @@ static void num32asc( char * s, int );
 
 #define DISPLAY_TURN_OFF_VDD (PORTFSET = 0x40)
 #define DISPLAY_TURN_OFF_VBAT (PORTFSET = 0x20)
+*/
 
 /* quicksleep:
    A simple function to create a small delay.
@@ -79,7 +81,8 @@ void tick( unsigned int * timep )
    Note: When you use this function, you should comment out any
    repeated calls to display_image; display_image overwrites
    about half of the digits shown by display_debug.
-*/   
+*/ 
+/*  
 void display_debug( volatile int * const addr )
 {
   display_string( 1, "Addr" );
@@ -88,6 +91,7 @@ void display_debug( volatile int * const addr )
   num32asc( &textbuffer[2][6], *addr );
   display_update();
 }
+*/
 
 /*
 SPI2STAT<3>: (SPITBE) Transmit Buffer Empty Status bit.
@@ -97,16 +101,19 @@ SPI2STAT<0>: (SPIRBF) Receive Buffer Full Status bit.
   1 = Receive Buffer, SPIxRXB is full
   0 = Receive Buffer, SPIxRXB is not full
 */
+/*
 uint8_t spi_send_recv(uint8_t data) {
 	while(!(SPI2STAT & 0x08));  // Waits for the transmit buffer to be empty
 	SPI2BUF = data;             // Push data to buffer
 	while(!(SPI2STAT & 1));     // Waits for the buffer to be full
 	return SPI2BUF;             // Return buffer
 }
+*/
 
 /*
 Init display
 */
+/*
 void display_init(void) {
   DISPLAY_CHANGE_TO_COMMAND_MODE;
 	quicksleep(10);
@@ -136,10 +143,12 @@ void display_init(void) {
 	
 	spi_send_recv(0xAF);
 }
+*/
 
 /*
 Display String
 */
+/*
 void display_string(int line, char *s) {
 	int i;
 	if(line < 0 || line >= 4)
@@ -154,10 +163,12 @@ void display_string(int line, char *s) {
 		} else
 			textbuffer[line][i] = ' ';
 }
+*/
 
 /*
 Visar en bild, how it worky work?
 */
+/*
 void display_image(int x, const uint8_t *data) {
 	int i, j;
 	
@@ -176,10 +187,12 @@ void display_image(int x, const uint8_t *data) {
 			spi_send_recv(~data[i*32*4 + j]);
 	}
 }
+*/
 
 /*
 Hur fan funkar denna??
 */
+/*
 void display_update(void) {
 	int i, j, k;
 	int c;
@@ -203,15 +216,18 @@ void display_update(void) {
 		}
 	}
 }
+*/
 
 /* Helper function, local to this file.
    Converts a number to hexadecimal ASCII digits. */
+   /*
 static void num32asc( char * s, int n ) 
 {
   int i;
   for( i = 28; i >= 0; i -= 4 )
     *s++ = "0123456789ABCDEF"[ (n >> i) & 15 ];
 }
+*/
 
 /*
  * itoa
@@ -297,9 +313,11 @@ char * itoaconv( int num )
 /* Our new functions for projekt */
 
 // simple for loop that resets the display
+/*
 void display_black(void){
 	int i;
 	for (i = 0; i < 512; i++)
 		display[i] = 255; // set all bits (pixels) to 1, cuz data is inveted
 	return;
 }
+*/
