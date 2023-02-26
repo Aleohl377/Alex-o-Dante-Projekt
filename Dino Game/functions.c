@@ -90,13 +90,18 @@ void display_debug( volatile int * const addr )
 }
 
 /*
-Looks complicated
+SPI2STAT<3>: (SPITBE) Transmit Buffer Empty Status bit.
+  1 = SPIxTXB is empty
+  0 = SPIxTXB is not empty
+SPI2STAT<0>: (SPIRBF) Receive Buffer Full Status bit.
+  1 = Receive Buffer, SPIxRXB is full
+  0 = Receive Buffer, SPIxRXB is not full
 */
 uint8_t spi_send_recv(uint8_t data) {
-	while(!(SPI2STAT & 0x08));
-	SPI2BUF = data;
-	while(!(SPI2STAT & 1));
-	return SPI2BUF;
+	while(!(SPI2STAT & 0x08));  // Waits for the transmit buffer to be empty
+	SPI2BUF = data;             // Push data to buffer
+	while(!(SPI2STAT & 1));     // Waits for the buffer to be full
+	return SPI2BUF;             // Return buffer
 }
 
 /*
@@ -133,7 +138,7 @@ void display_init(void) {
 }
 
 /*
-Nu kommer det text
+Display String
 */
 void display_string(int line, char *s) {
 	int i;
