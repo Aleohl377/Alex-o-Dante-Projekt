@@ -37,8 +37,13 @@ void tick( unsigned int * timep );
 
 /* Declare bitmap array containing font */
 extern const uint8_t const font[128*8];
-/* Declare bitmap array containing icon */
-extern const uint8_t const icon[128];
+/*          NEW STUFF         */
+/* Declare bitmap array containing the whole display */
+extern uint8_t display[64*8];
+/* bitmap array containing grafical objekt (ground)*/
+extern const uint8_t const ground[64*8];
+/* dino player */
+extern const uint8_t const dino[1*8];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
 

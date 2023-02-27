@@ -14,3 +14,7 @@ void display_image(int x, const uint8_t *data);
 
 /* ----- NEW STUFF ----- */
 void display_black(void);
+void ground_init(void);
+
+void Game_init(void);
+void Game_loop(void);

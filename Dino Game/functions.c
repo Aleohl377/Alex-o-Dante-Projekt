@@ -321,3 +321,15 @@ void display_black(void){
 	return;
 }
 */
+
+void Game_init(void){
+  display_black();
+  ground_init();
+  display_small_image(3,dino);
+};
+
+void Game_loop(void){
+	  display_black();
+    
+	  ground_init();
+};
