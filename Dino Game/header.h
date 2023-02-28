@@ -37,6 +37,8 @@ extern uint8_t display_buffer[128 * 4];
 extern uint8_t ground[128*4];
 /* dino player */
 extern const uint8_t const dino[8*8];
+/* Enemy */
+extern const uint8_t const enemy[8*8];
 /* white box */
 extern const uint8_t const white_box[8*8];
 /* Declare text buffer for display output */

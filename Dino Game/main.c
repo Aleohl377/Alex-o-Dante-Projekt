@@ -27,6 +27,8 @@ char button3 = 0;
 int px = 16;
 int py = 16;
 
+int jump_counter = 0;
+
 
 void game_menu(void);
 
@@ -148,4 +150,19 @@ void check_inputs(void)
 	button2 = (button & 2) >> 1;
 	button3 = (button & 4) >> 2;
 	delay(10000);
+}
+
+void jump()
+{
+	if(jump_counter < 5)
+	{
+		py -= 2;
+	}
+	else if (jump_counter < 10)
+	{
+		py--;
+	}
+
+
+	jump_counter++;
 }
