@@ -17,66 +17,20 @@
 int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
 
+/* ----- I/O ----- */
+void check_inputs(void);
+char button1 = 0;
+char button2 = 0;
+char button3 = 0;
 
-/* This function is called repetitively from the main program */
-void game_menu( void )
-{
-  	int button = getbtns();
-  	delay(100);
+/* ----- Player Positions ----- */
+int px = 16;
+int py = 16;
 
-	if (button & 1 && GAME_MENU_STATE > 0)
-	{
-		GAME_MENU_STATE--;
-	}
-	if (button & 2 && GAME_MENU_STATE < 2)
-	{
-		GAME_MENU_STATE++;
-	}
-	
-	switch (GAME_MENU_STATE)
-	{
-	case 0:
-		display_string(0, "> Start");
-		display_string(1, " By group 50");
-		display_string(2, " Game speed");
-		display_string(3, "");
 
-		if (button & 4)
-		{
-			GAME_STATE = 1;
-		}
+void game_menu(void);
 
-		break;
-	case 1:
-		display_string(0, " Start");
-		display_string(1, "> By group 50");
-		display_string(2, " Game speed");
-		display_string(3, "");
 
-		if (button & 4)
-		{
-			GAME_STATE = 1;
-		}
-		
-		break;
-	case 2:
-		display_string(0, " Start");
-		display_string(1, " By group 50");
-		display_string(2, "> Game speed");
-		display_string(3, "");
-
-		if (button & 4)
-		{
-			GAME_STATE = 1;
-		}
-
-		break;
-	default:
-		break;
-	}
-
-	display_update();
-}
 
 int main(void) {
 
@@ -102,10 +56,9 @@ int main(void) {
 
 	init_data();
 
-	int x = 16;
-
 	while (1)
 	{
+		check_inputs();
 
 		if (GAME_STATE == 0)
 		{
@@ -113,16 +66,11 @@ int main(void) {
 		}
 		else if (GAME_STATE == 1)
 		{
-			int button = getbtns();
 
-			if (button & 1) x++;
-			if (button & 2) x--;
+			if (button1) px++;
+			if (button2) px--;
 			
-			//update_display_bitmap(8, 8, 0, 0, dino);
-			//update_display_bitmap(8, 8, 8, 8, dino);
-			update_display_bitmap(8, 8, x, 16, dino);
-
-			//display_white();
+			update_display_bitmap(8, 8, px, py, dino);
 
 			push_bitmap_to_display_buffer();
 
@@ -134,4 +82,70 @@ int main(void) {
 		}
 	}
 	return 0;
+}
+
+/* This function is called repetitively from the main program */
+void game_menu(void)
+{
+	if (button1 && GAME_MENU_STATE > 0)
+	{
+		GAME_MENU_STATE--;
+	}
+	if (button2 && GAME_MENU_STATE < 2)
+	{
+		GAME_MENU_STATE++;
+	}
+	
+	switch (GAME_MENU_STATE)
+	{
+	case 0:
+		display_string(0, "> Start");
+		display_string(1, " By group 50");
+		display_string(2, " Game speed");
+		display_string(3, "");
+
+		if (button3)
+		{
+			GAME_STATE = 1;
+		}
+
+		break;
+	case 1:
+		display_string(0, " Start");
+		display_string(1, "> By group 50");
+		display_string(2, " Game speed");
+		display_string(3, "");
+
+		if (button3)
+		{
+			GAME_STATE = 1;
+		}
+		
+		break;
+	case 2:
+		display_string(0, " Start");
+		display_string(1, " By group 50");
+		display_string(2, "> Game speed");
+		display_string(3, "");
+
+		if (button3)
+		{
+			GAME_STATE = 1;
+		}
+
+		break;
+	default:
+		break;
+	}
+
+	display_update();
+}
+
+void check_inputs(void)
+{
+	int button = getbtns();
+  	button1 = (button & 1);
+	button2 = (button & 2) >> 1;
+	button3 = (button & 4) >> 2;
+	delay(10000);
 }
