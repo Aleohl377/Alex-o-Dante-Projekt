@@ -39,13 +39,21 @@ void tick( unsigned int * timep );
 extern const uint8_t const font[128*8];
 /*          NEW STUFF         */
 /* Declare bitmap array containing the whole display */
-extern uint8_t display[64*8];
+extern uint8_t display[32][128];
+/* Display buffer ready to be sent to display memory */
+extern uint8_t display_buffer[128 * 4];
 /* bitmap array containing grafical objekt (ground)*/
-extern const uint8_t const ground[64*8];
+extern uint8_t ground[128*4];
 /* dino player */
 extern const uint8_t const dino[1*8];
+/* dino2 player */
+extern const uint8_t const dino2[8*8];
+/* white box */
+extern const uint8_t const white_box[8*8];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
+/* init data arrays */
+void init_data(void);
 
 /* Declare functions written by students.
    Note: Since we declare these functions here,

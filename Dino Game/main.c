@@ -154,14 +154,28 @@ int main(void) {
 	display_string(3, "");
 	display_update();
 
-	Game_init();
+	//Game_init();
 	
 	labinit(); /* Do any lab-specific initialization */
 
-	while( 1 )
+	init_data();
+
+	while (1)
 	{
-	  //labwork(); /* Do lab-specific things again and again */
-	  
+		
+		update_display_bitmap(8, 8, 0, 0, dino2);
+		update_display_bitmap(8, 8, 8, 8, dino2);
+		update_display_bitmap(8, 8, 16, 16, dino2);
+
+		//display_white();
+
+		push_bitmap_to_display_buffer();
+
+		update_display_buffer(ground);
+		
+		draw_display();
+
+		delay(500);
 	}
 	return 0;
 }

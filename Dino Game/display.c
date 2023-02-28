@@ -200,14 +200,142 @@ void display_update(void) {
 /*  display_black
     Simple for loop that resets the display.
 */
-void display_black(void){
+void display_black(void)
+{
 	int i;
-	for (i = 0; i < 512; i++){
-		display[i] = 255; // set all bits (pixels) to 1, cuz data is inverted
+	for (i = 0; i < 512; i++)
+	{
+		display_buffer[i] = 0;
 	}
-	return;
 }
 
-void ground_init(void){
+
+void display_white(void)
+{
+	int x, y;
+	for (x = 0; x < 128; x++)
+	{
+		for (y = 0; y < 32; y++)
+		{
+			display[y][x] = 1;
+		}
+	}
+}
+
+
+void ground_init(void)
+{
 	display_image(0,ground);
+}
+
+
+/* update_display_buffer
+
+*/
+void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data)
+{
+	// if (width > 128 || )
+
+	int i, j;
+	int c = 0;
+
+	for (i = y; i < (y + height); i++)
+	{
+		for (j = x; j < (x + width); j++)
+		{
+			display[i][j] = data[c];
+			c++;
+		}
+	}
+}
+
+
+/* update_display_buffer
+	Only works with [512] arrays.
+	(Will be used for the floor)
+*/
+void update_display_buffer(const uint8_t *data)
+{
+	int page, row;
+
+	for (page = 0; page < 4; page++)
+	{
+		for (row = 0; row < 128; row++)
+		{
+			display_buffer[row + (128 * page)] |= data[row + (128 * page)];
+		}
+	}
+}
+
+
+int simple_pow(int x, int y)
+{
+	if ( x == 0 ) return 0;
+	if ( y == 0 ) return 1;
+	if ( y == 1 ) return x;
+
+	int i, m = x;
+	for (i = 1; i < y; i++)
+		x *= m;
+	
+	return x;
+}
+
+void push_bitmap_to_display_buffer(void)
+{
+	int acc = 0;
+	int i, j, k;
+
+	for (k = 0; k < 4; k++)
+	{
+		for (i = 0; i < 128; i++)
+		{
+			for (j = 0; j < 8; j++)
+			{
+				acc += display[j + (8 * k)][i] * simple_pow(2, j);
+			}
+
+			display_buffer[i + (128 * k)] = acc;
+			acc = 0;
+		}
+	}
+	
+}
+
+
+/*
+
+Display resolution: 128 x 32 px
+
+The display memory can hold max 512 bytes.
+The display memory is organized as four pages of 128 bytes each.
+Each memory page corresponds to an 8-pixel-high stripe across the display.
+The least significant bit in a display byte is the top most pixel, and the most significant bit the bottom most pixel.
+The first byte in the page corresponds to the left most pixels on the display and the last byte the right most pixels.
+
+Display buffer has to be reduced from 4096 bytes to 512 bytes before being pushed to display memory.
+
+
+
+*/
+void draw_display(void)
+{
+	int i, j;
+	
+	for(i = 0; i < 4; i++) {
+		DISPLAY_CHANGE_TO_COMMAND_MODE;
+
+		/* Set the page address */
+		spi_send_recv(0x22);	// Set page command
+		spi_send_recv(i);		// page number (0-3)
+		
+		/* Start at the left column */
+		spi_send_recv(0x0); 	//set low nybble of column
+		spi_send_recv(0x10);	//set high nybble of column
+		
+		DISPLAY_CHANGE_TO_DATA_MODE;
+		
+		for(j = 0; j < 128; j++)
+			spi_send_recv(display_buffer[(i * 128) + j]);
+	}
 }
