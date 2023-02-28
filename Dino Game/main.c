@@ -13,11 +13,7 @@
 #include "header.h"
 #include "display.h"
 
-
-//int mytime = 0x5957;
-//volatile int* PORTEs = (volatile int*)0xbf886110; //skapa pointer till portE
-//volatile int* TRISEs = (volatile int*)0xbf886100;
-
+/* ----- GAME STATES ----- */
 int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
 
@@ -28,20 +24,8 @@ void user_isr( void )
   return;
 }
 
-/* Lab-specific initialization goes here */
-void labinit( void )
-{
-  // LEDS
-	TRISE &= ~0xff;  /* set 8 lsb to outputs*/
-  // 
-	PORTE = 0;	/*set value of LEDs to 0*/
-  //
-	TRISD |= 0xfe0;	/* set bits 11 till 5*/
-  return;
-}
-
 /* This function is called repetitively from the main program */
-void labwork( void )
+void game_menu( void )
 {
   	int button = getbtns();
   	delay(100);
@@ -102,62 +86,18 @@ void labwork( void )
 
 int main(void) {
 
-	/* ----- INIT STUFF -----*/
-	/*
-	  This will set the peripheral bus clock to the same frequency
-	  as the sysclock. That means 80 MHz, when the microcontroller
-	  is running at 80 MHz. Changed 2017, as recommended by Axel.
-	*/
-	SYSKEY = 0xAA996655;  /* Unlock OSCCON, step 1 */
-	SYSKEY = 0x556699AA;  /* Unlock OSCCON, step 2 */
-	while(OSCCON & (1 << 21)); /* Wait until PBDIV ready */
-	OSCCONCLR = 0x180000; /* clear PBDIV bit <0,1> */
-	while(OSCCON & (1 << 21));  /* Wait until PBDIV ready */
-	SYSKEY = 0x0;  /* Lock OSCCON */
-	
-	/* Set up output pins */
-	AD1PCFG = 0xFFFF;
-	ODCE = 0x0;
-	TRISECLR = 0xFF;
-	PORTE = 0x0;
-	
-	/* Output pins for display signals */
-	PORTF = 0xFFFF;
-	PORTG = (1 << 9);
-	ODCF = 0x0;
-	ODCG = 0x0;
-	TRISFCLR = 0x70;
-	TRISGCLR = 0x200;
-	
-	/* Set up input pins */
-	TRISDSET = (1 << 8);
-	TRISFSET = (1 << 1);
-	
-	/* Set up SPI as master */
-	SPI2CON = 0;
-	SPI2BRG = 4;
-	/* SPI2STAT bit SPIROV = 0; */
-	SPI2STATCLR = 0x40;
-	/* SPI2CON bit CKP = 1; */
-        SPI2CONSET = 0x40;
-	/* SPI2CON bit MSTEN = 1; */
-	SPI2CONSET = 0x20;
-	/* SPI2CON bit ON = 1; */
-	SPI2CONSET = 0x8000;
-	/* Our code*/
-	// changed strings
-	/* --------- END ---------*/
-	
+	hardware_init();
 	display_init();
+
+	/* ----- TITLE SCREEN ----- */
 	display_string(0, "Dino jump!");
 	display_string(1, "By group 50");
 	display_string(2, "");
 	display_string(3, "Welcome!");
-	//spi_send_recv(255);
 	display_update();
 	delay(3000);
 	
-	// New set of strings to get black screen
+	// Empty string buffer
 	display_string(0, "");
 	display_string(1, "");
 	display_string(2, "");
@@ -165,8 +105,6 @@ int main(void) {
 	display_update();
 
 	//Game_init();
-	
-	labinit(); /* Do any lab-specific initialization */
 
 	init_data();
 
@@ -177,7 +115,7 @@ int main(void) {
 
 		if (GAME_STATE == 0)
 		{
-			labwork();
+			game_menu();
 		}
 		else if (GAME_STATE == 1)
 		{

@@ -16,7 +16,6 @@
 
 /* Declare lab-related functions from mipslabfunc.c */
 char * itoaconv( int num );
-void labwork(void);
 int nextprime( int inval );
 void quicksleep(int cyc);
 void tick( unsigned int * timep );
@@ -54,6 +53,10 @@ extern const uint8_t const white_box[8*8];
 extern char textbuffer[4][16];
 /* init data arrays */
 void init_data(void);
+/* init hardware */
+void hardware_init(void);
+
+void game_menu(void);
 
 /* Declare functions written by students.
    Note: Since we declare these functions here,
