@@ -14,11 +14,13 @@
 #include "display.h"
 
 
-int mytime = 0x5957;
+//int mytime = 0x5957;
 //volatile int* PORTEs = (volatile int*)0xbf886110; //skapa pointer till portE
 //volatile int* TRISEs = (volatile int*)0xbf886100;
 
-char textstring[] = "text, more text, and even more text!";
+int GAME_STATE = 0;
+int GAME_MENU_STATE = 0;
+
 
 /* Interrupt Service Routine */
 void user_isr( void )
@@ -41,59 +43,67 @@ void labinit( void )
 /* This function is called repetitively from the main program */
 void labwork( void )
 {
-
   	int button = getbtns();
-	int switches = getsw();
   	delay(100);
-  	
-	display_string(0, "> Start");
-	display_string(1, " Settings");
-	display_string(2, " Game Speed");
-  	display_string(3, "");
-	display_update();
-	
 
-	if (button & 1)
-  	{
-		//display_init();
-		delay(1000);
+	if (button & 1 && GAME_MENU_STATE > 0)
+	{
+		GAME_MENU_STATE--;
+	}
+	if (button & 2 && GAME_MENU_STATE < 2)
+	{
+		GAME_MENU_STATE++;
+	}
+	
+	switch (GAME_MENU_STATE)
+	{
+	case 0:
+		display_string(0, "> Start");
+		display_string(1, " By group 50");
+		display_string(2, " Game speed");
+		display_string(3, "");
+
+		if (button & 4)
+		{
+			GAME_STATE = 1;
+		}
+
+		break;
+	case 1:
 		display_string(0, " Start");
 		display_string(1, "> By group 50");
 		display_string(2, " Game speed");
 		display_string(3, "");
-	}
 
-	if (button & 2) 
-  	{
-		//display_init();
-		delay(1000);
+		if (button & 4)
+		{
+			GAME_STATE = 1;
+		}
+		
+		break;
+	case 2:
 		display_string(0, " Start");
 		display_string(1, " By group 50");
 		display_string(2, "> Game speed");
 		display_string(3, "");
+
+		if (button & 4)
+		{
+			GAME_STATE = 1;
+		}
+
+		break;
+	default:
+		break;
 	}
 
-	if (button & 4) 
-  	{
-		//display_init();
-		delay(1000);
-		display_string(0, " Start");
-		display_string(1, "> By group 50");
-		display_string(2, " Game speed");
-		display_string(3, "");
-	}
-
-  //delay( 1000 );
-  //time2string( textstring, mytime );
-  //display_string( 3, textstring );
-  //display_update();
-  //tick( &mytime );
-  //PORTE += 1;	/* addera med 1 till PORTE efter varje tick*/
-  //display_image(96, icon);
+	display_update();
 }
 
 int main(void) {
-        /*
+
+	/* ----- INIT STUFF -----*/
+	/*
 	  This will set the peripheral bus clock to the same frequency
 	  as the sysclock. That means 80 MHz, when the microcontroller
 	  is running at 80 MHz. Changed 2017, as recommended by Axel.
@@ -136,18 +146,18 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 	/* Our code*/
 	// changed strings
+	/* --------- END ---------*/
 	
 	display_init();
 	display_string(0, "Dino jump!");
 	display_string(1, "By group 50");
 	display_string(2, "");
 	display_string(3, "Welcome!");
-	spi_send_recv(255);
+	//spi_send_recv(255);
 	display_update();
+	delay(3000);
 	
 	// New set of strings to get black screen
-
-	delay(1000);
 	display_string(0, "");
 	display_string(1, "");
 	display_string(2, "");
@@ -160,22 +170,36 @@ int main(void) {
 
 	init_data();
 
+	int x = 16;
+
 	while (1)
 	{
-		
-		update_display_bitmap(8, 8, 0, 0, dino2);
-		update_display_bitmap(8, 8, 8, 8, dino2);
-		update_display_bitmap(8, 8, 16, 16, dino2);
 
-		//display_white();
+		if (GAME_STATE == 0)
+		{
+			labwork();
+		}
+		else if (GAME_STATE == 1)
+		{
+			int button = getbtns();
 
-		push_bitmap_to_display_buffer();
+			if (button & 1) x++;
+			if (button & 2) x--;
+			
+			//update_display_bitmap(8, 8, 0, 0, dino2);
+			//update_display_bitmap(8, 8, 8, 8, dino2);
+			update_display_bitmap(8, 8, x, 16, dino2);
 
-		update_display_buffer(ground);
-		
-		draw_display();
+			//display_white();
 
-		delay(500);
+			push_bitmap_to_display_buffer();
+
+			update_display_buffer(ground);
+			
+			draw_display();
+
+			clear_display_bitmap();
+		}
 	}
 	return 0;
 }

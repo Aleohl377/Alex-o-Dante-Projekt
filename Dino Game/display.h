@@ -16,6 +16,7 @@ void display_image(int x, const uint8_t *data);
 void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data);
 void push_bitmap_to_display_buffer(void);
 void update_display_buffer(const uint8_t *data);
+void clear_display_bitmap(void);
 void draw_display(void);
 
 void display_white(void);

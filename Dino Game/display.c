@@ -298,8 +298,21 @@ void push_bitmap_to_display_buffer(void)
 			display_buffer[i + (128 * k)] = acc;
 			acc = 0;
 		}
+	}	
+}
+
+
+void clear_display_bitmap(void)
+{
+	int col, row;
+
+	for (col = 0; col < 32; col++)
+	{
+		for (row = 0; row < 128; row++)
+		{
+			display[col][row] = 0;
+		}
 	}
-	
 }
 
 
