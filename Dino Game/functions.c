@@ -9,13 +9,14 @@
 
 #include "header.h"
 
-/* quicksleep:
+/* delay:
    A simple function to create a small delay.
    Very inefficient use of computing resources,
    but very handy in some special cases. */
-void quicksleep(int cyc) {
-	int i;
-	for(i = cyc; i > 0; i--);
+void delay(int cycles)
+{
+  int i;
+	for(i = cycles; i > 0; i--);
 }
 
 /* tick:

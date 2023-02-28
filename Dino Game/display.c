@@ -42,6 +42,9 @@ SPI2STAT<0>: (SPIRBF) Receive Buffer Full Status bit.
   1 = Receive Buffer, SPIxRXB is full
   0 = Receive Buffer, SPIxRXB is not full
 */
+/* spi_send_recv: Prepares two chunks for sending data first and then
+receiving an answer, queues a transfer and waits for
+it to complete.  This is not a full-duplex operation.*/
 uint8_t spi_send_recv(uint8_t data) {
 	while(!(SPI2STAT & 0x08));  // Waits for the transmit buffer to be empty
 	SPI2BUF = data;             // Push data to buffer
@@ -54,16 +57,16 @@ uint8_t spi_send_recv(uint8_t data) {
 
 */
 void display_init(void) {
-  DISPLAY_CHANGE_TO_COMMAND_MODE;
-	quicksleep(10);
+	DISPLAY_CHANGE_TO_COMMAND_MODE;
+	delay(10);
 	DISPLAY_ACTIVATE_VDD;
-	quicksleep(1000000);
+	delay(1000000);
 	
 	spi_send_recv(0xAE);
 	DISPLAY_ACTIVATE_RESET;
-	quicksleep(10);
+	delay(10);
 	DISPLAY_DO_NOT_RESET;
-	quicksleep(10);
+	delay(10);
 	
 	spi_send_recv(0x8D);
 	spi_send_recv(0x14);
@@ -72,7 +75,7 @@ void display_init(void) {
 	spi_send_recv(0xF1);
 	
 	DISPLAY_ACTIVATE_VBAT;
-	quicksleep(10000000);
+	delay(10000000);
 	
 	spi_send_recv(0xA1);
 	spi_send_recv(0xC8);

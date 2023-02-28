@@ -11,7 +11,6 @@
 
 
 char * itoaconv( int num );
-void quicksleep(int cyc);
 void tick( unsigned int * timep );
 
 
@@ -22,7 +21,7 @@ void hardware_init(void);
 void game_menu(void);
 
 
-void delay(int);
+void delay(int cycles);
 int getbtns(void);
 int getsw(void);
 

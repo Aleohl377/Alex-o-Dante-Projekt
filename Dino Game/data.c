@@ -25,6 +25,8 @@ uint8_t ground[128*4];
 void init_data(void)
 {
 	int i, j;
+
+	/* ----- Display ----- */
 	for (i = 0; i < 32; i++)
 	{
 		for (j = 0; j < 128; j++)
@@ -33,11 +35,13 @@ void init_data(void)
 		}
 	}
 
+	/* ----- Display Buffer ----- */
 	for (i = 0; i < (128 * 4); i++)
 	{
 		display_buffer[i] = 0;
 	}
 
+	/* ----- Ground ----- */
 	for (i = 0; i < 4; i++)
 	{
 		for (j = 0; j < 128; j++)
@@ -193,21 +197,6 @@ const uint8_t const dino[] =
 	0, 0, 1, 1, 0, 1, 1, 0,
 };
 
-const uint8_t const white_box[] = 
-{
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-};
 
 
 
-/* spi_send_recv: Prepares two chunks for sending data first and then
-receiving an answer, queues a transfer and waits for
-it to complete.  This is not a full-duplex operation.*/
