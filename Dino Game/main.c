@@ -28,6 +28,7 @@ int px = 16;
 int py = 16;
 
 int jump_counter = 0;
+int jump_true = 0;
 
 
 void game_menu(void);
@@ -71,6 +72,7 @@ int main(void) {
 
 			if (button1) px++;
 			if (button2) px--;
+			if (button3) jump_true = 1;
 			
 			update_display_bitmap(8, 8, px, py, dino);
 
@@ -154,15 +156,26 @@ void check_inputs(void)
 
 void jump()
 {
-	if(jump_counter < 5)
+	if(jump_counter < 4 && jump_true == 1)
 	{
 		py -= 2;
 	}
-	else if (jump_counter < 10)
+	else if (jump_counter >= 4 && jump_counter < 11 && jump_true == 1)
 	{
 		py--;
 	}
-
-
+	else if (jump_counter > 13 && jump_counter < 15 && jump_true == 1)
+	{
+		py++;
+	}
+	else if (jump_counter >= 15 && jump_counter <= 20 && jump_true == 1)
+	{
+		py += 2;
+	}
+	else if (jump_counter > 20 && jump_true == 1)
+	{
+		jump_true = 0;
+		jump_counter = -1;
+	}
 	jump_counter++;
 }
