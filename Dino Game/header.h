@@ -1,38 +1,31 @@
-/* mipslab.h
+/* 
+   header.h
    Header file for all labs.
    This file written 2015 by F Lundevall
    Some parts are original code written by Axel Isaksson
 
    Latest update 2015-08-28 by F Lundevall
 
-   For copyright and licensing, see file COPYING */
+   For copyright and licensing, see file COPYING
+*/
 
-/* Declare display-related functions from mipslabfunc.c */
-//void display_image(int x, const uint8_t *data);
-//void display_init(void);
-//void display_string(int line, char *s);
-//void display_update(void);
-//uint8_t spi_send_recv(uint8_t data);
 
-/* Declare lab-related functions from mipslabfunc.c */
 char * itoaconv( int num );
-int nextprime( int inval );
 void quicksleep(int cyc);
 void tick( unsigned int * timep );
 
-/* Declare display_debug - a function to help debugging.
 
-   After calling display_debug,
-   the two middle lines of the display show
-   an address and its current contents.
+void init_data(void);
+void hardware_init(void);
 
-   There's one parameter: the address to read and display.
 
-   Note: When you use this function, you should comment out any
-   repeated calls to display_image; display_image overwrites
-   about half of the digits shown by display_debug.
-*/
-//void display_debug( volatile int * const addr );
+void game_menu(void);
+
+
+void delay(int);
+int getbtns(void);
+int getsw(void);
+
 
 /* Declare bitmap array containing font */
 extern const uint8_t const font[128*8];
@@ -44,28 +37,13 @@ extern uint8_t display_buffer[128 * 4];
 /* bitmap array containing grafical objekt (ground)*/
 extern uint8_t ground[128*4];
 /* dino player */
-extern const uint8_t const dino[1*8];
-/* dino2 player */
-extern const uint8_t const dino2[8*8];
+extern const uint8_t const dino[8*8];
 /* white box */
 extern const uint8_t const white_box[8*8];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
-/* init data arrays */
-void init_data(void);
-/* init hardware */
-void hardware_init(void);
 
-void game_menu(void);
 
-/* Declare functions written by students.
-   Note: Since we declare these functions here,
-   students must define their functions with the exact types
-   specified in the laboratory instructions. */
-/* Written as part of asm lab: delay, time2string */
-void delay(int);
-void time2string( char *, int );
-/* Written as part of i/o lab: getbtns, getsw, enable_interrupt */
-int getbtns(void);
-int getsw(void);
-void enable_interrupt(void);
+
+
+

@@ -18,12 +18,6 @@ int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
 
 
-/* Interrupt Service Routine */
-void user_isr( void )
-{
-  return;
-}
-
 /* This function is called repetitively from the main program */
 void game_menu( void )
 {
@@ -124,9 +118,9 @@ int main(void) {
 			if (button & 1) x++;
 			if (button & 2) x--;
 			
-			//update_display_bitmap(8, 8, 0, 0, dino2);
-			//update_display_bitmap(8, 8, 8, 8, dino2);
-			update_display_bitmap(8, 8, x, 16, dino2);
+			//update_display_bitmap(8, 8, 0, 0, dino);
+			//update_display_bitmap(8, 8, 8, 8, dino);
+			update_display_bitmap(8, 8, x, 16, dino);
 
 			//display_white();
 

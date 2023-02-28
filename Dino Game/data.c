@@ -180,15 +180,7 @@ const uint8_t const font[] = {
 	0, 120, 68, 66, 68, 120, 0, 0,	// 127 : (DEL)
 };
 
-
-const uint8_t const dino[] = {
-
-199,223,9,66,192,24,121,255,
-
-
-};
-
-const uint8_t const dino2[] = 
+const uint8_t const dino[] = 
 {
 	0, 0, 0, 1, 1, 1, 0, 0,
 	0, 0, 1, 0, 1, 1, 1, 0,
