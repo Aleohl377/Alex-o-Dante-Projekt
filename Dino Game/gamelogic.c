@@ -2,7 +2,6 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 
 #include "header.h"
-#include "display.h"
 
 
 
