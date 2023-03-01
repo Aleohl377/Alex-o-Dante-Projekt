@@ -251,6 +251,19 @@ void ground_init(void)
 /* update_display_buffer
 
 */
+
+/*
+update_display_bitmap
+	@brief: 
+	@author:
+	@params:
+		width:
+		height: 
+		x: 
+		y: 
+		data: 
+	@return: Void
+*/
 void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data)
 {
 	// Bound checking
@@ -270,12 +283,9 @@ void update_display_bitmap(int width, int height, int x, int y, const uint8_t *d
 			for (j = x; j < (x + width); j++)
 			{
 				// Only update the display bitmap if the pixel is inside the display bounds
-				if (j < 128 && i < 32)
+				if (j < 128 && i < 32 && j >= 0 && j >= 0)
 				{
-					if (j >= 0 && i >= 0)
-					{
-						display[i][j] = data[c];
-					}
+					display[i][j] = data[c];
 				}
 				c++;
 			}

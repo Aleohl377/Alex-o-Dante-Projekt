@@ -10,50 +10,57 @@
 */
 
 
+/* ----- FUNCTIONS (functions.c) ----- */
 char * itoaconv( int num );
 void tick( unsigned int * timep );
 void quicksleep(int cycles);
-
-void init_data(void);
+void delay(int);
 void hardware_init(void);
 
 
-void game_menu(void);
+
+/* ----- DATA (data.c) ----- */
+void init_data(void);
+
+extern const uint8_t const font[128*8];   // (Lab code) Font
+extern char textbuffer[4][16];            // (Lab code) Textbuffer, 4 lines, 16 letters max on each line
+
+extern uint8_t display[32][128];          // Display bitmap 128 x 32 px
+extern uint8_t display_buffer[128*4];     // Display buffer, each element corresponds to 8 pixels
+extern uint8_t ground[128*4];             // Graphic: Ground
+extern const uint8_t const dino[8*8];     // Graphic: Dino
+extern const uint8_t const enemy[8*8];    // Graphic: Enemy
 
 
-void delay(int);
+
+/* ----- INPUT/OUTPUT (input.c) ----- */
+void check_inputs(void);
 int getbtns(void);
 int getsw(void);
-
-
-/* Declare bitmap array containing font */
-extern const uint8_t const font[128*8];
-/*          NEW STUFF         */
-/* Declare bitmap array containing the whole display */
-extern uint8_t display[32][128];
-/* Display buffer ready to be sent to display memory */
-extern uint8_t display_buffer[128 * 4];
-/* bitmap array containing grafical objekt (ground)*/
-extern uint8_t ground[128*4];
-/* dino player */
-extern const uint8_t const dino[8*8];
-/* Enemy */
-extern const uint8_t const enemy[8*8];
-/* white box */
-extern const uint8_t const white_box[8*8];
-/* Declare text buffer for display output */
-extern char textbuffer[4][16];
-
-
-/* ----- INPUT/OUTPUT ----- */
-void check_inputs(void);
 
 extern char button1;
 extern char button2;
 extern char button3;
 
 
-/* ----- GAME LOGIC ----- */
+
+/* ----- GAME LOGIC (gamelogic.c) ----- */
+int GAME_STATE;
+int GAME_MENU_STATE;
+
+struct player
+{
+	uint8_t x;
+	uint8_t y;
+	uint8_t width;
+	uint8_t height;
+	const uint8_t *graphic;
+   uint8_t is_jumping;
+   uint8_t jump_tick;
+};
+
+void game_menu(void);
+void title_screen(void);
 
 
 
