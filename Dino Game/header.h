@@ -86,6 +86,7 @@ struct player
 	const uint8_t *graphic;
    uint8_t is_jumping;
    uint8_t jump_tick;
+   uint8_t lifes;
 };
 
 void jump(struct player *p);

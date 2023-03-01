@@ -28,7 +28,7 @@ int main(void) {
 	delay(1000);
 	clear_text_buffer();
 	//new life_init (Kanske inte funkar eftersom vi inte gjort krasch check ännu)
-	life_init();
+	//life_init();
 
 	// Create player
 	struct player p;
@@ -39,6 +39,7 @@ int main(void) {
 	p.graphic = dino;
 	p.is_jumping = 0;
 	p.jump_tick = 0;
+	p.lifes = 3;
 
 	//Create enemy?
 	
@@ -53,6 +54,11 @@ int main(void) {
 		}
 		else if (GAME_STATE == 1)
 		{
+
+			if(p.lifes == 3) PORTE = 0b0111;
+			if(p.lifes == 2) PORTE = 0b0011;
+			if(p.lifes == 1) PORTE = 0b0001;
+
 
 			if (button1) p.x++;
 			if (button2) p.x--;
@@ -71,7 +77,7 @@ int main(void) {
 			clear_display_bitmap();
 
 			//new Get_life check
-			Get_a_life();
+			//Get_a_life();
 		}
 	}
 	return 0;
