@@ -11,10 +11,11 @@
 
 
 /* ----- FUNCTIONS (functions.c) ----- */
-char * itoaconv( int num );
-void tick( unsigned int * timep );
-void quicksleep(int cycles);
-void delay(int);
+char * itoaconv( int num );               // (Lab code)
+void tick( unsigned int * timep );        // (Lab code)
+void quicksleep(int cycles);              // (Lab code)
+void delay(int);                          // (Lab code)
+
 void hardware_init(void);
 
 
@@ -35,8 +36,8 @@ extern const uint8_t const enemy[8*8];    // Graphic: Enemy
 
 /* ----- INPUT/OUTPUT (input.c) ----- */
 void check_inputs(void);
-int getbtns(void);
-int getsw(void);
+int getbtns(void);         // (Lab code)
+int getsw(void);           // (Lab code)
 
 extern char button1;
 extern char button2;
@@ -58,6 +59,8 @@ struct player
    uint8_t is_jumping;
    uint8_t jump_tick;
 };
+
+void jump(struct player *p);
 
 void game_menu(void);
 void title_screen(void);

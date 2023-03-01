@@ -53,6 +53,12 @@ int main(void) {
 
 			if (button1) p.x++;
 			if (button2) p.x--;
+
+			if (button3) 
+			{
+				p.is_jumping = 1;
+            	jump(&p);
+			}
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 

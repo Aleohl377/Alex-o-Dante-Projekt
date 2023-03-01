@@ -5,6 +5,35 @@
 #include "display.h"
 
 
+
+void jump(struct player *p)
+{
+    if(p->jump_tick < 4 && p->is_jumping == 1)
+    {
+        p->y -= 2;
+    }
+    else if (p->jump_tick >= 4 && p->jump_tick < 11 && p->is_jumping == 1)
+    {
+        p->y--;
+    }
+    else if (p->jump_tick > 13 && p->jump_tick < 15 && p->is_jumping == 1)
+    {
+        p->y++;
+    }
+    else if (p->jump_tick >= 15 && p->jump_tick <= 20 && p->is_jumping == 1)
+    {
+        p->y += 2;
+    }
+    else if (p->jump_tick > 20 && p->is_jumping == 1)
+    {
+        p->is_jumping = 0;
+        p->jump_tick = -1;
+    }
+    p->jump_tick++;
+}
+
+
+
 /* This function is called repetitively from the main program */
 void game_menu(void)
 {
