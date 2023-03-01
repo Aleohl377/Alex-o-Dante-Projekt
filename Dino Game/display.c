@@ -253,17 +253,32 @@ void ground_init(void)
 */
 void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data)
 {
-	// if (width > 128 || )
+	// Bound checking
+	if (width > 128) width = 128;
+	else if (width < 0) width = 0;
 
-	int i, j;
-	int c = 0;
+	if (height > 32) height = 32;
+	else if (height < 0) height = 0;
 
-	for (i = y; i < (y + height); i++)
+	if ((x + width) >= 0 && (y + height) >= 0)
 	{
-		for (j = x; j < (x + width); j++)
+		int i, j;
+		int c = 0;
+
+		for (i = y; i < (y + height); i++)
 		{
-			display[i][j] = data[c];
-			c++;
+			for (j = x; j < (x + width); j++)
+			{
+				// Only update the display bitmap if the pixel is inside the display bounds
+				if (j < 128 && i < 32)
+				{
+					if (j >= 0 && i >= 0)
+					{
+						display[i][j] = data[c];
+					}
+				}
+				c++;
+			}
 		}
 	}
 }
