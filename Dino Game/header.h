@@ -12,16 +12,12 @@
 
 
 /* ----- Display (display.c) ----- */
-uint8_t spi_send_recv(uint8_t data);
-
-void display_init(void);
-
-void display_debug( volatile int * const addr );
-
-void display_update(void);
-
-void display_string(int line, char *s);
-void display_image(int x, const uint8_t *data);
+uint8_t spi_send_recv(uint8_t data);               // (Lab code)
+void display_init(void);                           // (Lab code)
+void display_debug( volatile int * const addr );   // (Lab code)
+void display_update(void);                         // (Lab code)
+void display_string(int line, char *s);            // (Lab code)
+void display_image(int x, const uint8_t *data);    // (Lab code)
 
 /* ----- NEW STUFF ----- */
 void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data);
@@ -39,6 +35,7 @@ int simple_pow(int x, int y);
 
 void Game_init(void);
 void Game_loop(void);
+
 
 
 /* ----- FUNCTIONS (functions.c) ----- */
