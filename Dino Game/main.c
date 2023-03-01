@@ -19,14 +19,10 @@ int GAME_MENU_STATE = 0;
 
 
 /* ----- Player Positions ----- */
-struct player
-{
-	uint8_t x;
-	uint8_t y;
-	uint8_t width;
-	uint8_t height;
-	const uint8_t *graphic;
-};
+int px = 16;
+int py = 16;
+
+int jump_counter = 0;
 
 
 void game_menu(void);
@@ -65,8 +61,8 @@ int main(void) {
 		else if (GAME_STATE == 1)
 		{
 
-			if (button1) p.x++;
-			if (button2) p.x--;
+			if (button1) px++;
+			if (button2) px--;
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
@@ -141,10 +137,24 @@ void game_menu(void)
 
 void title_screen(void)
 {
-	/* ----- TITLE SCREEN ----- */
-	display_string(0, "Dino jump!");
-	display_string(1, "By group 50");
-	display_string(2, "");
-	display_string(3, "Welcome!");
-	display_update();
+	int button = getbtns();
+  	button1 = (button & 1);
+	button2 = (button & 2) >> 1;
+	button3 = (button & 4) >> 2;
+	delay(10000);
+}
+
+void jump()
+{
+	if(jump_counter < 5)
+	{
+		py -= 2;
+	}
+	else if (jump_counter < 10)
+	{
+		py--;
+	}
+
+
+	jump_counter++;
 }
