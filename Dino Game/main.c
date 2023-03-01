@@ -27,6 +27,8 @@ int main(void) {
 	title_screen();
 	delay(1000);
 	clear_text_buffer();
+	//new life_init (Kanske inte funkar eftersom vi inte gjort krasch check ännu)
+	life_init();
 
 	// Create player
 	struct player p;
@@ -38,6 +40,8 @@ int main(void) {
 	p.is_jumping = 0;
 	p.jump_tick = 0;
 
+	//Create enemy?
+	
 	while (1)
 	{
 		check_inputs();
@@ -65,6 +69,9 @@ int main(void) {
 			draw_display();
 
 			clear_display_bitmap();
+
+			//new Get_life check
+			Get_a_life();
 		}
 	}
 	return 0;

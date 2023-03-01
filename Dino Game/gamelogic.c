@@ -2,6 +2,7 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 
 #include "header.h"
+#include "display.h"
 
 
 
@@ -29,6 +30,10 @@ void jump(struct player *p)
         p->jump_tick = -1;
     }
     p->jump_tick++;
+	else if (p->is_jumping == 0)
+	{
+		p->jump_tick = 0;
+	}
 }
 
 
@@ -98,4 +103,32 @@ void title_screen(void)
 	display_string(2, "");
 	display_string(3, "Welcome!");
 	display_update();
+}
+
+/*_____DANTE NILSSON din jävel titta på denna kod______*/
+void life_init (void)
+{
+	TRISE &= ~0xff;  /* set 8 lsb to outputs*/
+	PORTE = 0x07;	/*set value of LEDs to 7 (turn on 3 first leds)*/
+
+	int player_life = 2; // For LEDs, POW of 2 is the first life
+	int hit = 0;
+}
+
+/*--Check life and display on LEDSs--*/
+void Get_a_life(void)
+{
+	int life;
+	int life_new;
+	// hit variabeln är variabeln som ändras om krasch (kan ändras)
+	if (hit == 1);
+	{
+		// player_life är variabeln som minskar leds  
+		life = simple_pow(2, player_life);
+		life_new = ~(life);
+		PORTE = PORTE & life_new;
+
+		player_life--;
+		hit == 0;
+	}
 }
