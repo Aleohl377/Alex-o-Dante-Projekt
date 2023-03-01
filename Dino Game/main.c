@@ -17,20 +17,20 @@
 int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
 
-/* ----- I/O ----- */
-void check_inputs(void);
-char button1 = 0;
-char button2 = 0;
-char button3 = 0;
 
 /* ----- Player Positions ----- */
-int px = 16;
-int py = 16;
-
-int jump_counter = 0;
+struct player
+{
+	uint8_t x;
+	uint8_t y;
+	uint8_t width;
+	uint8_t height;
+	const uint8_t *graphic;
+};
 
 
 void game_menu(void);
+void title_screen(void);
 
 
 
@@ -39,24 +39,19 @@ int main(void) {
 	hardware_init();
 	display_init();
 
-	/* ----- TITLE SCREEN ----- */
-	display_string(0, "Dino jump!");
-	display_string(1, "By group 50");
-	display_string(2, "");
-	display_string(3, "Welcome!");
-	display_update();
-	delay(3000);
-	
-	// Empty string buffer
-	display_string(0, "");
-	display_string(1, "");
-	display_string(2, "");
-	display_string(3, "");
-	display_update();
-
-	//Game_init();
-
 	init_data();
+
+	title_screen();
+	delay(1000);
+	clear_text_buffer();
+
+	// Create player
+	struct player p;
+	p.x = 16;
+	p.y = 16;
+	p.width = 8;
+	p.height = 8;
+	p.graphic = dino;
 
 	while (1)
 	{
@@ -65,14 +60,15 @@ int main(void) {
 		if (GAME_STATE == 0)
 		{
 			game_menu();
+			delay(100);
 		}
 		else if (GAME_STATE == 1)
 		{
 
-			if (button1) px++;
-			if (button2) px--;
+			if (button1) p.x++;
+			if (button2) p.x--;
 			
-			update_display_bitmap(8, 8, px, py, dino);
+			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
 			push_bitmap_to_display_buffer();
 
@@ -143,26 +139,12 @@ void game_menu(void)
 	display_update();
 }
 
-void check_inputs(void)
+void title_screen(void)
 {
-	int button = getbtns();
-  	button1 = (button & 1);
-	button2 = (button & 2) >> 1;
-	button3 = (button & 4) >> 2;
-	delay(10000);
-}
-
-void jump()
-{
-	if(jump_counter < 5)
-	{
-		py -= 2;
-	}
-	else if (jump_counter < 10)
-	{
-		py--;
-	}
-
-
-	jump_counter++;
+	/* ----- TITLE SCREEN ----- */
+	display_string(0, "Dino jump!");
+	display_string(1, "By group 50");
+	display_string(2, "");
+	display_string(3, "Welcome!");
+	display_update();
 }

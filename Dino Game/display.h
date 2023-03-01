@@ -18,6 +18,7 @@ void push_bitmap_to_display_buffer(void);
 void update_display_buffer(const uint8_t *data);
 void clear_display_bitmap(void);
 void draw_display(void);
+void clear_text_buffer(void);
 
 void display_white(void);
 void display_black(void);

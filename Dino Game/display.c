@@ -58,15 +58,15 @@ uint8_t spi_send_recv(uint8_t data) {
 */
 void display_init(void) {
 	DISPLAY_CHANGE_TO_COMMAND_MODE;
-	delay(10);
+	quicksleep(10);
 	DISPLAY_ACTIVATE_VDD;
-	delay(1000000);
+	quicksleep(1000000);
 	
 	spi_send_recv(0xAE);
 	DISPLAY_ACTIVATE_RESET;
-	delay(10);
+	quicksleep(10);
 	DISPLAY_DO_NOT_RESET;
-	delay(10);
+	quicksleep(10);
 	
 	spi_send_recv(0x8D);
 	spi_send_recv(0x14);
@@ -75,7 +75,7 @@ void display_init(void) {
 	spi_send_recv(0xF1);
 	
 	DISPLAY_ACTIVATE_VBAT;
-	delay(10000000);
+	quicksleep(10000000);
 	
 	spi_send_recv(0xA1);
 	spi_send_recv(0xC8);
@@ -223,6 +223,22 @@ void display_white(void)
 			display[y][x] = 1;
 		}
 	}
+}
+
+
+void clear_text_buffer(void)
+{
+	int i, j;
+
+	for (i = 0; i < 4; i++)
+	{
+		for (j = 0; j < 16; j++)
+		{
+			textbuffer[i][j] = 0;
+		}
+	}
+
+	display_update();
 }
 
 

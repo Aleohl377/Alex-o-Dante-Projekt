@@ -12,7 +12,7 @@
 
 char * itoaconv( int num );
 void tick( unsigned int * timep );
-
+void quicksleep(int cycles);
 
 void init_data(void);
 void hardware_init(void);
@@ -21,7 +21,7 @@ void hardware_init(void);
 void game_menu(void);
 
 
-void delay(int cycles);
+void delay(int);
 int getbtns(void);
 int getsw(void);
 
@@ -43,6 +43,17 @@ extern const uint8_t const enemy[8*8];
 extern const uint8_t const white_box[8*8];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
+
+
+/* ----- INPUT/OUTPUT ----- */
+void check_inputs(void);
+
+extern char button1;
+extern char button2;
+extern char button3;
+
+
+/* ----- GAME LOGIC ----- */
 
 
 
