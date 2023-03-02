@@ -42,12 +42,16 @@ int main(void) {
 	p.jump_tick = 0;
 	p.lifes = 3;
 
+	/*
 	struct enemy e1;
 	p.x = 16;
 	p.y = 16;
 	p.width = 8;
 	p.height = 8;
-	p.graphic = enemy;
+	p.graphic = enemy_graphic;
+	*/
+
+	spawn_enemies();
 
 	//Create enemy?
 	
@@ -76,7 +80,10 @@ int main(void) {
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
-			update_display_bitmap(e1.width, e1.height, e1.x, e1.y, e1.graphic);
+			//update_display_bitmap(e1.width, e1.height, e1.x, e1.y, e1.graphic);
+
+			update_enemies();
+			draw_enemies();
 
 			push_bitmap_to_display_buffer();
 

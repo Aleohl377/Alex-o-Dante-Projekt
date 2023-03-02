@@ -59,7 +59,7 @@ extern uint8_t display_buffer[128*4];     // Display buffer, each element corres
 extern uint8_t ground[128*4];             // Graphic: Ground
 extern const uint8_t const dino[8*8];     // Graphic: Dino
 extern const uint8_t const player_2[8*8]; // Graphic: Player 2
-extern const uint8_t const enemy[8*8];    // Graphic: Enemy
+extern const uint8_t const enemy_graphic[8*8];    // Graphic: Enemy
 
 
 
@@ -99,10 +99,17 @@ struct enemy
 	const uint8_t *graphic;
 };
 
+struct enemy enemies[5];
+void spawn_enemies(void);
+void update_enemies(void);
+void draw_enemies(void);
+
 void jump(struct player *p);
 
 void game_menu(void);
 void title_screen(void);
+
+extern int speed;
 
 
 

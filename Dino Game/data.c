@@ -81,7 +81,7 @@ const uint8_t const player_2[] =
 	0, 0, 0, 1, 0, 1, 0, 0,
 };
 
-const uint8_t const enemy[] = 
+const uint8_t const enemy_graphic[] = 
 {
     0, 0, 1, 1, 1, 1, 0, 0,
     0, 1, 0, 0, 0, 0, 1, 0,

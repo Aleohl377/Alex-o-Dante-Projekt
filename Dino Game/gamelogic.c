@@ -35,7 +35,39 @@ void jump(struct player *p)
     p->jump_tick++;
 }
 
+void spawn_enemies(void)
+{
+    int i;
 
+    for (i = 0; i < 5; i++)
+    {
+        enemies[i].x = (i * 200) + 256;
+        enemies[i].y = 16;
+        enemies[i].width = 8;
+        enemies[i].height = 8;
+        enemies[i].graphic = enemy_graphic;
+    }
+}
+
+void update_enemies(void)
+{
+    int i;
+
+    for (i = 0; i < 5; i++)
+    {
+        enemies[i].x -= 5;
+    }
+}
+
+void draw_enemies(void)
+{
+    int i;
+
+    for (i = 0; i < 5; i++)
+    {
+        update_display_bitmap(enemies[i].width, enemies[i].height, enemies[i].x, enemies[i].y, enemies[i].graphic);
+    }
+}
 
 /* This function is called repetitively from the main program */
 void game_menu(void)
