@@ -6,6 +6,7 @@
 
 void jump(struct player *p)
 {
+	
     if(p->jump_tick < 7 && p->is_jumping == 1)
     {
         p->y -= 2;
@@ -119,7 +120,7 @@ void game_menu(void)
 		display_string(0, "> Start");
 		display_string(1, " Game Speed");
 		display_string(2, " Highscore");
-		display_string(3, " 2 player");
+		display_string(3, " How to play");
 
 		if (button3)
 		{
@@ -131,11 +132,18 @@ void game_menu(void)
 		display_string(0, " Start");
 		display_string(1, "> Game Speed");
 		display_string(2, " Highscore");
-		display_string(3, " 2 player");
+		display_string(3, " How to play");
 
 		if (button3)
 		{
-			GAME_STATE = 2;
+			display_string(0, "Switch 1 1x");
+			display_string(1, "Switch 2 2x");
+			display_string(2, "Switch 3 3x");
+			display_string(3, "Switch 4 paus");
+			delay(100);
+			
+			GAME_STATE = 0;
+			
 		}
 		
 		break;
@@ -143,7 +151,7 @@ void game_menu(void)
 		display_string(0, " Start");
 		display_string(1, " Game Speed");
 		display_string(2, "> Highscore");
-		display_string(3, " 2 player");
+		display_string(3, " How to play");
 
 		if (button3)
 		{
@@ -155,11 +163,16 @@ void game_menu(void)
 		display_string(0, " Start");
 		display_string(1, " Game Speed");
 		display_string(2, " Highscore");
-		display_string(3, "> 2 player");
+		display_string(3, "> How to play");
 
 		if (button3)
 		{
-			GAME_STATE = 4;
+			display_string(0, "Jump over enemys");
+			display_string(1, "3 lives");
+			display_string(2, "shown on leds");
+			display_string(3, "");
+			
+			GAME_STATE = 0;
 		}
 
 		break;
@@ -170,6 +183,7 @@ void game_menu(void)
 
 	display_update();
 }
+
 
 void title_screen(void)
 {
@@ -245,4 +259,19 @@ void game_speed(void)
 	{
 		speed = 0;
 	}
+}
+
+void dead_anime(struct player *p)
+{
+	if (dead_tick < 5 && GAME_STATE == 2)
+	{
+		p->y -=2;
+		p->x -=1;
+	}
+	else if (dead_tick >= 5 && dead_tick < 12 && GAME_STATE == 2)
+	{
+		p->y +=3;
+		p->x -=1;
+	}
+	
 }

@@ -29,14 +29,14 @@ static void num32asc( char * s, int n )
     *s++ = "0123456789ABCDEF"[ (n >> i) & 15 ];
 }
 
-void convert_integer_to_chars(uint8_t value, char *text)
+/*void convert_integer_to_chars(uint8_t value, char *text)
 {
 	int i, bits = 0b00000001;
 	for (i = 0; i < 8; i++)
 	{
 		highscore[i] = (value & (bits << i)) + '0';
 	}
-}
+}*/
 
 
 

@@ -122,6 +122,7 @@ void title_screen(void);
 void check_game_over(void);
 
 extern int speed;
+extern int dead_tick;
 
 
 
