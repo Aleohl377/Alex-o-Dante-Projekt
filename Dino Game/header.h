@@ -58,6 +58,7 @@ extern uint8_t display[32][128];          // Display bitmap 128 x 32 px
 extern uint8_t display_buffer[128*4];     // Display buffer, each element corresponds to 8 pixels
 extern uint8_t ground[128*4];             // Graphic: Ground
 extern const uint8_t const dino[8*8];     // Graphic: Dino
+extern const uint8_t const player_2[8*8]; // Graphic: Player 2
 extern const uint8_t const enemy[8*8];    // Graphic: Enemy
 
 
@@ -87,6 +88,15 @@ struct player
    uint8_t is_jumping;
    uint8_t jump_tick;
    uint8_t lifes;
+};
+
+struct enemy
+{
+	uint8_t x;
+	uint8_t y;
+	uint8_t width;
+	uint8_t height;
+	const uint8_t *graphic;
 };
 
 void jump(struct player *p);

@@ -44,7 +44,7 @@ void game_menu(void)
 	{
 		GAME_MENU_STATE--;
 	}
-	if (button2 && GAME_MENU_STATE < 2)
+	if (button2 && GAME_MENU_STATE < 3)
 	{
 		GAME_MENU_STATE++;
 	}
@@ -55,7 +55,7 @@ void game_menu(void)
 		display_string(0, "> Start");
 		display_string(1, " Game Speed");
 		display_string(2, " Highscore");
-		display_string(3, "");
+		display_string(3, " 2 player");
 
 		if (button3)
 		{
@@ -67,11 +67,11 @@ void game_menu(void)
 		display_string(0, " Start");
 		display_string(1, "> Game Speed");
 		display_string(2, " Highscore");
-		display_string(3, "");
+		display_string(3, " 2 player");
 
 		if (button3)
 		{
-			GAME_STATE = 1;
+			GAME_STATE = 2;
 		}
 		
 		break;
@@ -79,17 +79,30 @@ void game_menu(void)
 		display_string(0, " Start");
 		display_string(1, " Game Speed");
 		display_string(2, "> Highscore");
-		display_string(3, "");
+		display_string(3, " 2 player");
 
 		if (button3)
 		{
-			GAME_STATE = 1;
+			GAME_STATE = 3;
+		}
+
+		break;
+	case 3:
+		display_string(0, " Start");
+		display_string(1, " Game Speed");
+		display_string(2, " Highscore");
+		display_string(3, "> 2 player");
+
+		if (button3)
+		{
+			GAME_STATE = 4;
 		}
 
 		break;
 	default:
 		break;
 	}
+	
 
 	display_update();
 }
@@ -132,3 +145,69 @@ void title_screen(void)
 		hit == 0;
 	}
 }*/
+
+void game_speed(void)
+{
+	if (button1 && GAME_MENU_STATE > 0)
+	{
+		GAME_MENU_STATE--;
+	}
+	if (button2 && GAME_MENU_STATE < 3)
+	{
+		GAME_MENU_STATE++;
+	}
+
+	switch (GAME_MENU_STATE)
+	{
+	case 0:
+		display_string(0, "> 1x speed");
+		display_string(1, " 2x speed");
+		display_string(2, " 3x speed");
+		display_string(3, " 4x speed");
+
+		if (button3)
+		{
+			speed = 1;
+		}
+
+		break;
+	case 1:
+		display_string(0, " 1x speed");
+		display_string(1, "> 2x speed");
+		display_string(2, " 3x speed");
+		display_string(3, " 4x speed");
+
+		if (button3)
+		{
+			speed = 2;
+		}
+		
+		break;
+	case 2:
+		display_string(0, " 1x speed");
+		display_string(1, " 2x speed");
+		display_string(2, "> 3x speed");
+		display_string(3, " 4x speed");
+
+		if (button3)
+		{
+			speed = 3;
+		}
+
+		break;
+	case 3:
+		display_string(0, " 1x speed");
+		display_string(1, " 2x speed");
+		display_string(2, " 3x speed");
+		display_string(3, "> 4x speed");
+
+		if (button3)
+		{
+			speed = 4;
+		}
+
+		break;
+	default:
+		break;
+	}
+}

@@ -15,6 +15,7 @@
 /* ----- GAME STATES ----- */
 int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
+int speed = 0;
 
 
 int main(void) {
@@ -40,6 +41,13 @@ int main(void) {
 	p.is_jumping = 0;
 	p.jump_tick = 0;
 	p.lifes = 3;
+
+	struct enemy e1;
+	p.x = 16;
+	p.y = 16;
+	p.width = 8;
+	p.height = 8;
+	p.graphic = enemy;
 
 	//Create enemy?
 	
@@ -67,6 +75,8 @@ int main(void) {
 			jump(&p);
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
+
+			update_display_bitmap(e1.width, e1.height, e1.x, e1.y, e1.graphic);
 
 			push_bitmap_to_display_buffer();
 
