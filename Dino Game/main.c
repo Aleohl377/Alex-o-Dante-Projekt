@@ -66,29 +66,26 @@ int main(void) {
 		}
 		else if (GAME_STATE == 1)
 		{
+			collision_detection(&p);
 
 			if(p.lifes == 3) PORTE = 0b0111;
 			if(p.lifes == 2) PORTE = 0b0011;
 			if(p.lifes == 1) PORTE = 0b0001;
 			if(p.lifes == 0) PORTE = 0b0000;
 
+			if (p.lifes <= 0)
+			{
+				check_game_over();
+				p.lifes = 3;
+			}
 
-			if (button1) p.x++;
-			if (button2) p.x--;
+			//if (button1) p.x++;
+			//if (button2) p.x--;
 
 			if (button3) p.is_jumping = 1;
 			jump(&p);
 
-			collision_detection(&p);
-
-			if (p.lifes <= 0)
-			{
-				
-			}
-			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
-
-			//update_display_bitmap(e1.width, e1.height, e1.x, e1.y, e1.graphic);
 
 			update_enemies();
 			draw_enemies();

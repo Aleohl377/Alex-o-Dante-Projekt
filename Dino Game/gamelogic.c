@@ -180,6 +180,22 @@ void title_screen(void)
 }
 
 
+void check_game_over(void)
+{
+    clear_display_bitmap();
+    display_string(0, "Game over");
+    display_string(1, "LOSER!");
+    display_string(2, "HAHA!");
+    display_string(3, "");
+    display_update();
+    delay(800);
+    display_black();
+    display_string(0, "Restarting...");
+    delay(800);
+    GAME_STATE = 0;
+}
+
+
 /*_____DANTE NILSSON din jävel titta på denna kod______*/
 //void life_init (void)
 //{

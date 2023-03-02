@@ -112,6 +112,7 @@ void collision_detection(struct player *p);
 
 void game_menu(void);
 void title_screen(void);
+void check_game_over(void);
 
 extern int speed;
 
