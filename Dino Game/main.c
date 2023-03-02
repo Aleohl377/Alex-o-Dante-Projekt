@@ -95,7 +95,7 @@ int main(void) {
 
 			push_bitmap_to_display_buffer();
 
-			update_display_buffer(ground);
+			update_display_buffer(3, ground);
 			
 			draw_display();
 

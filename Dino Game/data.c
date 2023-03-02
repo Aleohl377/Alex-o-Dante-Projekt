@@ -19,7 +19,7 @@ char textbuffer[4][16];
 
 uint8_t display[32][128];
 uint8_t display_buffer[128*4];
-uint8_t ground[128*4];
+uint8_t ground[128];
 
 void init_data(void)
 {
@@ -41,13 +41,11 @@ void init_data(void)
 	}
 
 	/* ----- Ground ----- */
-	for (i = 0; i < 4; i++)
+	for (j = 0; j < 128; j++)
 	{
-		for (j = 0; j < 128; j++)
-		{
-			if (i > 2) ground[j + (128 * i)] = 255;
-			else ground[j + (128 * i)] = 0;
-		}
+		int temp = rand() % 100 + 1;
+		if (temp <= 50) ground[j] = 170;
+		else if (temp > 50) ground[j] = 85;
 	}
 
 }

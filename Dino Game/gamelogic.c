@@ -40,7 +40,8 @@ void spawn_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        enemies[i].x = (rand() % 100 + 1) + 128;
+        enemies[1].starting_position = 128 + (64 * i);
+        enemies[i].x = enemies[i].starting_position;
         enemies[i].y = 16;
         enemies[i].width = 8;
         enemies[i].height = 8;
@@ -57,7 +58,9 @@ void update_enemies(void)
         enemies[i].x -= (1*speed);
         
         if (enemies[i].x < -8)
-            enemies[i].x = (rand() % 100 + 1) + 128;
+        {
+            enemies[i].x = (rand() % 1000 + 1) + 128;
+        }
     }
 }
 
@@ -192,6 +195,7 @@ void check_game_over(void)
     display_string(0, "Restarting...");
     delay(800);
     GAME_STATE = 0;
+    spawn_enemies();
 }
 
 

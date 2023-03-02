@@ -24,7 +24,7 @@ void display_image(int x, const uint8_t *data);    // (Lab code)
 /* ----- NEW STUFF ----- */
 void update_display_bitmap(int width, int height, int x, int y, const uint8_t *data);
 void push_bitmap_to_display_buffer(void);
-void update_display_buffer(const uint8_t *data);
+void update_display_buffer(int p, const uint8_t *data);
 void clear_display_bitmap(void);
 void draw_display(void);
 void clear_text_buffer(void);
@@ -58,7 +58,7 @@ extern char textbuffer[4][16];            // (Lab code) Textbuffer, 4 lines, 16 
 
 extern uint8_t display[32][128];          // Display bitmap 128 x 32 px
 extern uint8_t display_buffer[128*4];     // Display buffer, each element corresponds to 8 pixels
-extern uint8_t ground[128*4];             // Graphic: Ground
+extern uint8_t ground[128];             // Graphic: Ground
 extern const uint8_t const dino[8*8];     // Graphic: Dino
 extern const uint8_t const player_2[8*8]; // Graphic: Player 2
 extern const uint8_t const enemy_graphic[8*8];    // Graphic: Enemy
@@ -103,6 +103,7 @@ struct enemy
 	uint8_t width;
 	uint8_t height;
 	const uint8_t *graphic;
+   int starting_position;
 };
 
 struct enemy enemies[5];

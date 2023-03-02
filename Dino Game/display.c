@@ -29,6 +29,16 @@ static void num32asc( char * s, int n )
     *s++ = "0123456789ABCDEF"[ (n >> i) & 15 ];
 }
 
+void convert_integer_to_chars(uint8_t value, char *text)
+{
+	int i, bits = 0b00000001;
+	for (i = 0; i < 8; i++)
+	{
+		highscore[i] = (value & (bits << i)) + '0';
+	}
+}
+
+
 
 /*
 SPI2STAT<3>: (SPITBE) Transmit Buffer Empty Status bit.
@@ -294,15 +304,15 @@ void update_display_bitmap(int width, int height, int x, int y, const uint8_t *d
 	Only works with [512] arrays.
 	(Will be used for the floor)
 */
-void update_display_buffer(const uint8_t *data)
+void update_display_buffer(int p, const uint8_t *data)
 {
-	int page, row;
+	int row, page;
 
-	for (page = 0; page < 4; page++)
+	for (page = p; page < 4; page++)
 	{
 		for (row = 0; row < 128; row++)
 		{
-			display_buffer[row + (128 * page)] |= data[row + (128 * page)];
+			display_buffer[row + (128 * page)] |= data[row];
 		}
 	}
 }
