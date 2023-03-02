@@ -74,7 +74,10 @@ extern char button1;
 extern char button2;
 extern char button3;
 
-
+extern char sw1;
+extern char sw2;
+extern char sw3;
+extern char sw4;
 
 /* ----- GAME LOGIC (gamelogic.c) ----- */
 int GAME_STATE;

@@ -54,7 +54,7 @@ void update_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        enemies[i].x -= 2;
+        enemies[i].x -= (1*speed);
         
         if (enemies[i].x < -8)
             enemies[i].x = (rand() % 100 + 1) + 128;
@@ -225,70 +225,20 @@ void check_game_over(void)
 
 void game_speed(void)
 {
-	if (button1 && GAME_MENU_STATE > 0)
+	if (sw1)
 	{
-		GAME_MENU_STATE--;
+		speed = 1;
 	}
-	if (button2 && GAME_MENU_STATE < 3)
+	if (sw2)
 	{
-		GAME_MENU_STATE++;
+		speed = 2;
 	}
-
-	switch (GAME_MENU_STATE)
+	if (sw3)
 	{
-	case 0:
-		display_string(0, "> 1x speed");
-		display_string(1, " 2x speed");
-		display_string(2, " 3x speed");
-		display_string(3, " 4x speed");
-
-		if (button3)
-		{
-			speed = 1;
-			GAME_STATE = 0;
-		}
-
-		break;
-	case 1:
-		display_string(0, " 1x speed");
-		display_string(1, "> 2x speed");
-		display_string(2, " 3x speed");
-		display_string(3, " 4x speed");
-
-		if (button3)
-		{
-			speed = 2;
-			GAME_STATE = 0;
-		}
-		
-		break;
-	case 2:
-		display_string(0, " 1x speed");
-		display_string(1, " 2x speed");
-		display_string(2, "> 3x speed");
-		display_string(3, " 4x speed");
-
-		if (button3)
-		{
-			speed = 3;
-			GAME_STATE = 0;
-		}
-
-		break;
-	case 3:
-		display_string(0, " 1x speed");
-		display_string(1, " 2x speed");
-		display_string(2, " 3x speed");
-		display_string(3, "> 4x speed");
-
-		if (button3)
-		{
-			speed = 4;
-			GAME_STATE = 0;
-		}
-
-		break;
-	default:
-		break;
+		speed = 3;
+	}
+	if (sw4)
+	{
+		speed = 0;
 	}
 }

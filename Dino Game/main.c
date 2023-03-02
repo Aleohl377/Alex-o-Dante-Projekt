@@ -16,7 +16,7 @@ void *stderr = NULL;
 /* ----- GAME STATES ----- */
 int GAME_STATE = 0;
 int GAME_MENU_STATE = 0;
-int speed = 0;
+int speed = 1;
 
 
 int main(void) {
@@ -89,6 +89,7 @@ int main(void) {
 
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
+			game_speed();
 			update_enemies();
 			draw_enemies();
 
