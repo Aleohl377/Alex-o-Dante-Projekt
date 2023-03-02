@@ -89,6 +89,8 @@ const uint8_t const enemy_graphic[] =
     1, 1, 1, 1, 0, 1, 1, 1,
 };
 
+
+/* ----- LAB CODE ----- */
 const uint8_t const font[] = {
 	0, 0, 0, 0, 0, 0, 0, 0,			// 0
 	0, 0, 0, 0, 0, 0, 0, 0,			// 1

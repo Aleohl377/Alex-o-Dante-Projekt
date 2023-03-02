@@ -45,18 +45,9 @@ int main(void) {
 	p.lifes = 3;
 	p.highscore = 0;
 
-	/*
-	struct enemy e1;
-	p.x = 16;
-	p.y = 16;
-	p.width = 8;
-	p.height = 8;
-	p.graphic = enemy_graphic;
-	*/
+	int jump_cooldown = 1;
 
 	spawn_enemies();
-
-	//Create enemy?
 	
 	while (1)
 	{
@@ -79,32 +70,37 @@ int main(void) {
 			if (p.lifes <= 0)
 			{
 				GAME_STATE = 2;
-				//check_game_over();
-				//p.lifes = 3;
 			}
+			else
+			{
+				if (button1) p.x++;
+				if (button2) p.x--;
 
-			//if (button1) p.x++;
-			//if (button2) p.x--;
+				if (button3) p.is_jumping = 1;
+				jump(&p);
 
-			if (button3) p.is_jumping = 1;
-			jump(&p);
+				update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
-			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
+				game_speed();
+				update_enemies();
+				draw_enemies();
 
-			game_speed();
-			update_enemies();
-			draw_enemies();
+				push_bitmap_to_display_buffer();
 
-			push_bitmap_to_display_buffer();
+				update_display_buffer(3, ground);
+				
+				draw_display();
 
-			update_display_buffer(3, ground);
-			
-			draw_display();
+				if (jump_cooldown) delay(500);
+				jump_cooldown = 0;
 
-			clear_display_bitmap();
+				if (button3) p.is_jumping = 1;
+				jump(&p);
 
-			//new Get_life check
-			//Get_a_life();
+				clear_display_bitmap();
+
+				p.highscore++;
+			}
 		}
 		else if (GAME_STATE == 2)
 		{
@@ -118,6 +114,11 @@ int main(void) {
 				p.x = 16;
 				GAME_STATE = 0;
 				dead_tick = 0;
+				p.jump_tick = 0;
+
+				if (p.highscore > top_highscore) top_highscore = p.highscore;
+
+				spawn_enemies();
 				check_game_over();
 			}
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
@@ -127,6 +128,8 @@ int main(void) {
 			draw_display();
 
 			clear_display_bitmap();
+
+			jump_cooldown = 1;
 		}
 	}
 	return 0;

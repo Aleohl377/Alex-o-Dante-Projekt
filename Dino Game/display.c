@@ -18,6 +18,7 @@
 #define DISPLAY_TURN_OFF_VBAT (PORTFSET = 0x20)
 
 
+/* ----- LAB CODE ----- */
 /*  num32asc
     Helper function, local to this file.
     Converts a number to hexadecimal ASCII digits. 
@@ -29,17 +30,9 @@ static void num32asc( char * s, int n )
     *s++ = "0123456789ABCDEF"[ (n >> i) & 15 ];
 }
 
-/*void convert_integer_to_chars(uint8_t value, char *text)
-{
-	int i, bits = 0b00000001;
-	for (i = 0; i < 8; i++)
-	{
-		highscore[i] = (value & (bits << i)) + '0';
-	}
-}*/
 
 
-
+/* ----- LAB CODE ----- */
 /*
 SPI2STAT<3>: (SPITBE) Transmit Buffer Empty Status bit.
   1 = SPIxTXB is empty
@@ -59,6 +52,7 @@ uint8_t spi_send_recv(uint8_t data) {
 }
 
 
+/* ----- LAB CODE ----- */
 /*  display_init
 
 */
@@ -93,6 +87,8 @@ void display_init(void) {
 }
 
 
+
+/* ----- LAB CODE ----- */
 /* display_debug
    A function to help debugging.
 
@@ -116,6 +112,7 @@ void display_debug( volatile int * const addr )
 }
 
 
+/* ----- LAB CODE ----- */
 /*  display_string
 
 */
@@ -135,6 +132,7 @@ void display_string(int line, char *s) {
 }
 
 
+/* ----- LAB CODE ----- */
 /*  display_image
 
 */
@@ -176,6 +174,8 @@ void display_small_image(int x, const uint8_t *data) {
 	}
 }
 
+
+/* ----- LAB CODE ----- */
 /*  display_update
     Prints textbuffer to display.
 */
@@ -204,7 +204,6 @@ void display_update(void) {
 }
 
 
-/* ----- NEW STUFF ----- */
 
 /*  display_black
     Simple for loop that resets the display.
@@ -366,8 +365,8 @@ void clear_display_bitmap(void)
 }
 
 
+/* ----- LAB CODE ----- */
 /*
-
 Display resolution: 128 x 32 px
 
 The display memory can hold max 512 bytes.
@@ -377,9 +376,6 @@ The least significant bit in a display byte is the top most pixel, and the most 
 The first byte in the page corresponds to the left most pixels on the display and the last byte the right most pixels.
 
 Display buffer has to be reduced from 4096 bytes to 512 bytes before being pushed to display memory.
-
-
-
 */
 void draw_display(void)
 {

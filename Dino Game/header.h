@@ -53,15 +53,15 @@ void hardware_init(void);
 /* ----- DATA (data.c) ----- */
 void init_data(void);
 
-extern const uint8_t const font[128*8];   // (Lab code) Font
-extern char textbuffer[4][16];            // (Lab code) Textbuffer, 4 lines, 16 letters max on each line
+extern const uint8_t const font[128*8];            // (Lab code) Font
+extern char textbuffer[4][16];                     // (Lab code) Textbuffer, 4 lines, 16 letters max on each line
 
-extern uint8_t display[32][128];          // Display bitmap 128 x 32 px
-extern uint8_t display_buffer[128*4];     // Display buffer, each element corresponds to 8 pixels
-extern uint8_t ground[128];             // Graphic: Ground
-extern const uint8_t const dino[8*8];     // Graphic: Dino
-extern const uint8_t const player_2[8*8]; // Graphic: Player 2
-extern const uint8_t const enemy_graphic[8*8];    // Graphic: Enemy
+extern uint8_t display[32][128];                   // Display bitmap 128 x 32 px
+extern uint8_t display_buffer[128*4];              // Display buffer, each element corresponds to 8 pixels
+extern uint8_t ground[128];                        // Graphic: Ground
+extern const uint8_t const dino[8*8];              // Graphic: Dino
+extern const uint8_t const player_2[8*8];          // Graphic: Player 2
+extern const uint8_t const enemy_graphic[8*8];     // Graphic: Enemy
 
 
 
@@ -123,6 +123,9 @@ void check_game_over(void);
 
 extern int speed;
 extern int dead_tick;
+uint8_t top_highscore;
+
+void convert_integer_to_chars(uint8_t value, char *text);
 
 
 

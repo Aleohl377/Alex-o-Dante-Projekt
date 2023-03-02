@@ -9,10 +9,12 @@ char sw2 = 0;
 char sw3 = 0;
 char sw4 = 0;
 
+/* ----- LAB CODE ----- */
 int getsw(void) {
 	int SW = (PORTD >> 8) & 0x000F; // inputs för switches shiftad 8 till höger 
 	return SW;
 }
+/* ----- LAB CODE ----- */
 int getbtns(void) {
 	int BTN = (PORTD >> 5) & 0x0007; // inputs för buttons shiftad 5 till höger
 	return BTN;

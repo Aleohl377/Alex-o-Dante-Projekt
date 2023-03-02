@@ -6,6 +6,8 @@
 
 #include "header.h"
 
+
+/* ----- LAB CODE ----- */
 /* quicksleep:
    A simple function to create a small delay.
    Very inefficient use of computing resources,
@@ -16,6 +18,18 @@ void quicksleep(int cycles)
 	for(i = cycles; i > 0; i--);
 }
 
+
+void convert_integer_to_chars(uint8_t value, char *text)
+{
+    int i, bits = 0b00000001;
+    for (i = 0; i < 8; i++)
+    {
+        text[i] = (value & (bits << i)) + '0';
+    }
+}
+
+
+/* ----- LAB CODE ----- */
 /* tick:
    Add 1 to time in memory, at location pointed to by parameter.
    Time is stored as 4 pairs of 2 NBCD-digits.
@@ -52,6 +66,8 @@ void tick( unsigned int * timep )
 }
 
 
+
+/* ----- LAB CODE ----- */
 /*
  * itoa
  * 
@@ -133,8 +149,8 @@ char * itoaconv( int num )
   return( &itoa_buffer[ i + 1 ] );
 }
 
-/* Our new functions for projekt */
 
+/* ----- LAB CODE ----- */
 void hardware_init(void)
 {
   /*

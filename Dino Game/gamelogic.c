@@ -7,32 +7,33 @@
 void jump(struct player *p)
 {
 	
-    if(p->jump_tick < 7 && p->is_jumping == 1)
+    if(p->jump_tick < 6 && p->is_jumping == 1)
     {
         p->y -= 2;
     }
-    else if (p->jump_tick >= 7 && p->jump_tick < 11 && p->is_jumping == 1)
+    else if (p->jump_tick >= 6 && p->jump_tick < 10 && p->is_jumping == 1)
     {
         p->y-= 1;
     }
-    else if (p->jump_tick > 18 && p->jump_tick < 23 && p->is_jumping == 1)
+    else if (p->jump_tick > 25 && p->jump_tick < 30 && p->is_jumping == 1)
     {
         p->y+= 1;
     }
-    else if (p->jump_tick >= 23 && p->jump_tick <= 28 && p->is_jumping == 1)
+    else if (p->jump_tick >= 30 && p->jump_tick <= 35 && p->is_jumping == 1)
     {
         p->y += 2;
     }
-    else if (p->jump_tick > 28 && p->is_jumping == 1)
+    else if (p->jump_tick > 35 && p->is_jumping == 1)
     {
         p->is_jumping = 0;
         p->jump_tick = 0;
+        p->y = 16;
     }
-    if (p->is_jumping == 0)
+    if (p->is_jumping == 1)
     {
-        p->jump_tick = 0;
+        p->jump_tick++;
     }
-    p->jump_tick++;
+    
 }
 
 void spawn_enemies(void)
@@ -41,7 +42,7 @@ void spawn_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        enemies[1].starting_position = 128 + (64 * i);
+        enemies[1].starting_position = 192 + (64 * i);
         enemies[i].x = enemies[i].starting_position;
         enemies[i].y = 16;
         enemies[i].width = 8;
@@ -155,7 +156,14 @@ void game_menu(void)
 
 		if (button3)
 		{
-			GAME_STATE = 3;
+            char text[9];
+            convert_integer_to_chars(top_highscore, text);
+            text[8] = '\0';
+
+			display_string(0, " TOP SCORE:");
+		    display_string(1, text);
+		    display_string(2, "");
+		    display_string(3, "");
 		}
 
 		break;
@@ -213,7 +221,6 @@ void check_game_over(void)
 }
 
 
-/*_____DANTE NILSSON din jävel titta på denna kod______*/
 //void life_init (void)
 //{
 //	TRISE &= ~0xff;  /* set 8 lsb to outputs*/
@@ -245,15 +252,15 @@ void game_speed(void)
 {
 	if (sw1)
 	{
-		speed = 1;
+		speed = 2;
 	}
 	if (sw2)
 	{
-		speed = 2;
+		speed = 3;
 	}
 	if (sw3)
 	{
-		speed = 3;
+		speed = 4;
 	}
 	if (sw4)
 	{
