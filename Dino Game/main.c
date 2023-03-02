@@ -28,7 +28,7 @@ int main(void) {
 	init_data();
 
 	title_screen();
-	delay(1000);
+	delay(2000);
 	clear_text_buffer();
 	//new life_init (Kanske inte funkar eftersom vi inte gjort krasch check ännu)
 	//life_init();

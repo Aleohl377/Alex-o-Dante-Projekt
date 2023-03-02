@@ -156,12 +156,12 @@ void game_menu(void)
 
 		if (button3)
 		{
-            char text[9];
-            convert_integer_to_chars(top_highscore, text);
-            text[8] = '\0';
+            //char text[9];
+            //convert_integer_to_chars(top_highscore, text);
+            //text[8] = '\0';
 
-			display_string(0, " TOP SCORE:");
-		    display_string(1, text);
+			display_string(0, "TOP SCORE:");
+		    display_string(1, "0000 0000");
 		    display_string(2, "");
 		    display_string(3, "");
 		}
@@ -207,15 +207,17 @@ void title_screen(void)
 void check_game_over(void)
 {
     clear_display_bitmap();
-    display_string(0, "Game over");
-    display_string(1, "LOSER!");
+    display_string(0, "Game over!");
+    display_string(1, "");
     display_string(2, "HAHA!");
     display_string(3, "");
     display_update();
-    delay(800);
+    delay(1200);
     display_black();
     display_string(0, "Restarting...");
-    delay(800);
+    display_string(2, "");
+    display_update();
+    delay(1200);
     GAME_STATE = 0;
     spawn_enemies();
 }
