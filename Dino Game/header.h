@@ -106,7 +106,8 @@ void draw_enemies(void);
 
 void jump(struct player *p);
 
-extern int is_colliding;
+int is_colliding;
+int current_colliding_object;
 void collision_detection(struct player *p);
 
 void game_menu(void);

@@ -70,6 +70,7 @@ int main(void) {
 			if(p.lifes == 3) PORTE = 0b0111;
 			if(p.lifes == 2) PORTE = 0b0011;
 			if(p.lifes == 1) PORTE = 0b0001;
+			if(p.lifes == 0) PORTE = 0b0000;
 
 
 			if (button1) p.x++;
@@ -79,6 +80,11 @@ int main(void) {
 			jump(&p);
 
 			collision_detection(&p);
+
+			if (p.lifes <= 0)
+			{
+				
+			}
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 

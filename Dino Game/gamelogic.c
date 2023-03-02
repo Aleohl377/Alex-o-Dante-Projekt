@@ -26,9 +26,9 @@ void jump(struct player *p)
     else if (p->jump_tick > 20 && p->is_jumping == 1)
     {
         p->is_jumping = 0;
-        p->jump_tick = -1;
+        p->jump_tick = 0;
     }
-	else if (p->is_jumping == 0)
+	if (p->is_jumping == 0)
 	{
 		p->jump_tick = 0;
 	}
@@ -89,9 +89,10 @@ void collision_detection(struct player *p)
             {
                 (*p).lifes--;
                 is_colliding = 1;
+                current_colliding_object = i;
             }  
         }
-        else
+        else if (current_colliding_object == i)
         {
             is_colliding = 0;
         }
