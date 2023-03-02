@@ -1,6 +1,3 @@
-#include <pic32mx.h>
-#include <stdint.h>
-
 #include "header.h"
 
 #define DISPLAY_VDD PORTFbits.RF6

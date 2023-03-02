@@ -8,7 +8,9 @@
 
    For copyright and licensing, see file COPYING
 */
-
+#include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
+#include <stdlib.h>
 
 
 /* ----- Display (display.c) ----- */
@@ -88,6 +90,7 @@ struct player
    uint8_t is_jumping;
    uint8_t jump_tick;
    uint8_t lifes;
+   int highscore;
 };
 
 struct enemy

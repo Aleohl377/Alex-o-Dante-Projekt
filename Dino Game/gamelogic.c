@@ -1,37 +1,36 @@
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-
 #include "header.h"
+
+
 
 
 
 void jump(struct player *p)
 {
-    if(p->jump_tick < 4 && p->is_jumping == 1)
+    if(p->jump_tick < 7 && p->is_jumping == 1)
     {
         p->y -= 2;
     }
-    else if (p->jump_tick >= 4 && p->jump_tick < 11 && p->is_jumping == 1)
+    else if (p->jump_tick >= 7 && p->jump_tick < 11 && p->is_jumping == 1)
     {
-        p->y--;
+        p->y-= 1;
     }
-    else if (p->jump_tick > 13 && p->jump_tick < 15 && p->is_jumping == 1)
+    else if (p->jump_tick > 18 && p->jump_tick < 23 && p->is_jumping == 1)
     {
-        p->y++;
+        p->y+= 1;
     }
-    else if (p->jump_tick >= 15 && p->jump_tick <= 20 && p->is_jumping == 1)
+    else if (p->jump_tick >= 23 && p->jump_tick <= 28 && p->is_jumping == 1)
     {
         p->y += 2;
     }
-    else if (p->jump_tick > 20 && p->is_jumping == 1)
+    else if (p->jump_tick > 28 && p->is_jumping == 1)
     {
         p->is_jumping = 0;
         p->jump_tick = 0;
     }
-	if (p->is_jumping == 0)
-	{
-		p->jump_tick = 0;
-	}
+    if (p->is_jumping == 0)
+    {
+        p->jump_tick = 0;
+    }
     p->jump_tick++;
 }
 
@@ -41,7 +40,7 @@ void spawn_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        enemies[i].x = (i * 200) + 256;
+        enemies[i].x = (rand() % 100 + 1) + 128;
         enemies[i].y = 16;
         enemies[i].width = 8;
         enemies[i].height = 8;
@@ -56,9 +55,9 @@ void update_enemies(void)
     for (i = 0; i < 5; i++)
     {
         enemies[i].x -= 2;
-
+        
         if (enemies[i].x < -8)
-            enemies[i].x = 500;
+            enemies[i].x = (rand() % 100 + 1) + 128;
     }
 }
 

@@ -7,10 +7,11 @@
 
    For copyright and licensing, see file COPYING */
 
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-
 #include "header.h"
+#include <stddef.h>
+void *stdin = NULL;
+void *stdout = NULL;
+void *stderr = NULL;
 
 /* ----- GAME STATES ----- */
 int GAME_STATE = 0;
@@ -41,6 +42,7 @@ int main(void) {
 	p.is_jumping = 0;
 	p.jump_tick = 0;
 	p.lifes = 3;
+	p.highscore = 0;
 
 	/*
 	struct enemy e1;
