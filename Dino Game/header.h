@@ -92,7 +92,7 @@ struct player
 
 struct enemy
 {
-	uint8_t x;
+	int x;
 	uint8_t y;
 	uint8_t width;
 	uint8_t height;
@@ -105,6 +105,9 @@ void update_enemies(void);
 void draw_enemies(void);
 
 void jump(struct player *p);
+
+extern int is_colliding;
+void collision_detection(struct player *p);
 
 void game_menu(void);
 void title_screen(void);

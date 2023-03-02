@@ -55,7 +55,10 @@ void update_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        enemies[i].x -= 5;
+        enemies[i].x -= 2;
+
+        if (enemies[i].x < -8)
+            enemies[i].x = 500;
     }
 }
 
@@ -65,7 +68,33 @@ void draw_enemies(void)
 
     for (i = 0; i < 5; i++)
     {
-        update_display_bitmap(enemies[i].width, enemies[i].height, enemies[i].x, enemies[i].y, enemies[i].graphic);
+        if (enemies[i].x < 128)
+            update_display_bitmap(enemies[i].width, enemies[i].height, enemies[i].x, enemies[i].y, enemies[i].graphic);
+    }
+}
+
+void collision_detection(struct player *p)
+{
+    int i;
+
+    // Loop through all enemies
+    for (i = 0; i < 5; i++)
+    {
+        if (p->x < enemies[i].x + enemies[i].width &&
+            p->x + p->width > enemies[i].x &&
+            p->y < enemies[i].y + enemies[i].height &&
+            p->height + p->y > enemies[i].y)
+        {
+            if (!is_colliding)
+            {
+                (*p).lifes--;
+                is_colliding = 1;
+            }  
+        }
+        else
+        {
+            is_colliding = 0;
+        }
     }
 }
 

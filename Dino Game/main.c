@@ -77,6 +77,8 @@ int main(void) {
 
 			if (button3) p.is_jumping = 1;
 			jump(&p);
+
+			collision_detection(&p);
 			
 			update_display_bitmap(p.width, p.height, p.x, p.y, p.graphic);
 
