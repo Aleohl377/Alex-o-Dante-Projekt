@@ -168,6 +168,7 @@ void game_speed(void)
 		if (button3)
 		{
 			speed = 1;
+			GAME_STATE = 0;
 		}
 
 		break;
@@ -180,6 +181,7 @@ void game_speed(void)
 		if (button3)
 		{
 			speed = 2;
+			GAME_STATE = 0;
 		}
 		
 		break;
@@ -192,6 +194,7 @@ void game_speed(void)
 		if (button3)
 		{
 			speed = 3;
+			GAME_STATE = 0;
 		}
 
 		break;
@@ -204,6 +207,7 @@ void game_speed(void)
 		if (button3)
 		{
 			speed = 4;
+			GAME_STATE = 0;
 		}
 
 		break;
